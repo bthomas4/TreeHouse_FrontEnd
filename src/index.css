@@ -1,0 +1,266 @@
+body {
+  margin-left: 0px;
+  margin-top: 70px;
+  font-family: sans-serif;
+}
+
+.center-stuff {
+  display: flex;
+  justify-content: center;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.index {
+  height: 100%;
+  width: 100%;
+  padding-top: 40px;
+  background-image: url(./images/tree2.jpg);
+  background-position: center;
+  position: fixed;
+}
+
+.alert {
+  text-align: center;
+  width: 400px;
+  margin-left: 20px;
+}
+
+.buttonGroup {
+  width: 90%;
+}
+
+/*--------------------- Forms classes ---------------------*/
+.formBox1 {
+  padding: 4% 25% 4% 25%;
+}
+
+.formBox2 {
+  padding: 4% 25% 4% 25%;
+}
+
+.formFont {
+  font-size: 20px;
+  color: rgb(49, 180, 67);
+}
+
+/*--------------------- PreTree classes ---------------------*/
+.preTree {
+  margin-top: 200px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 450px;
+}
+
+.preTreeHeader {
+  padding: 10% 1% 0% 1%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#center {
+  margin: auto;
+  padding: 15px;
+}
+/*--------------------- Tree/Generation classes ---------------------*/
+.treeHouse {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  padding-top: 30px;
+  margin-left: 200px;
+  padding-bottom: 50px;
+}
+
+.genContainer {
+  background-color: white;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 86%;
+}
+
+.genLabel {
+  text-align: left;
+  text-shadow: 1px 3px 12px whitesmoke, 2px 2px 30px whitesmoke, 2px 5px 10px white;
+}
+
+.genCards {
+  background-color: white;
+  margin-right: 10px;
+  width: 225px;
+  border: 1px solid black;
+}
+
+.genPics {
+  width: 200px;
+  height: 200px;
+  padding: 10%;
+}
+
+
+/*--------------------- Side bar classes ---------------------*/
+.profileSideNav {
+  background-color: white;
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  border-right: 1px solid black;
+  padding-top: 125px;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+}
+
+.profilePic {
+  width: 200px;
+  height: 200px;
+  padding: 10%;
+}
+
+.profileMenu {
+  font-size: 20px;
+  padding-left: 10%;
+  padding-right: 5%;
+}
+
+.activeNav {
+  background-color: rgb(240, 239, 239);
+}
+
+#treeFont {
+  color: rgb(26, 175, 46);
+  text-shadow: 0px 0px 0px rgb(60, 20, 2), 1px 2px 2px rgb(236, 236, 236);
+}
+
+
+/*--------------------- Carousel classes ---------------------*/
+.carouselContainer {
+  display: block;
+  margin-left: 50px;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.carousel {
+  background-color: white;
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 450px;
+  max-height: 300px;
+  width: 450px;
+  height: 300px;
+  overflow: hidden;
+}
+
+
+/*--------------------- SignUp classes ---------------------*/
+.signUpForm {
+  margin-top: 15px;
+}
+
+.signUpBox {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  width: 350px;
+  padding: 2% 3% 2% 3%;
+  border-right: 1px solid #000000;
+  border-left: 1px solid #000000;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  background-color: rgb(243, 242, 242);
+}
+
+.signUpButton {
+  display: flex;
+  justify-content: center;
+}
+
+.signUpLabel {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.aboutContainer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  width: 350px;
+  padding: 2% 3% 2% 3%;
+  display: flex;
+  justify-content: center;
+}
+
+.aboutButton {
+  box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.219);
+}
+
+#aboutText {
+  color: rgb(49, 180, 67);
+}
+
+
+/*--------------------- Space classes ---------------------*/
+.space1 {
+  margin-bottom: 1em;
+}
+
+.space2 {
+  margin-bottom: 2em;
+}
+
+.space3 {
+  margin-bottom: 3em;
+}
+
+.spaceTop {
+  margin-top: 30px;
+}
+
+
+/*--------------------- NavHeader classes ---------------------*/
+.navHeaderContainer {
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  border-bottom: 1px solid black;
+  background-color: white;
+}
+
+.logInSpacing {
+  margin-left: 5px; 
+  margin-right: 5px;
+}
+
+.navLogo {
+  width: 45px;
+  height: 45px;
+  padding: 5px;
+  float: left;
+}
+
+#navBrand {
+  font-size: 34px;
+  text-shadow: 1px 2px 1px rgb(43, 22, 5), 0 0 35px rgb(194, 193, 193), 0 0 1px rgb(20, 160, 27);
+  color: rgb(52, 197, 71);
+}
+
+#req {
+  color: red;
+  font-size: 18px;
+}
+
+#logInName {
+  font-size: 20px;
+  padding-top: 20px;
+  color: rgb(49, 180, 67);
+}
+
+
