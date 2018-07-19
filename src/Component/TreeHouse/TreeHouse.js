@@ -24,7 +24,7 @@ class TreeHouse extends Component {
 
     render() {
         let routes = [
-            <SideBar />,
+            <SideBar loggedInUser={this.props.loggedInUser}/>,
             <MyCarousel />,
             <Generations members={this.state.members} />
         ];

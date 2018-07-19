@@ -22,7 +22,7 @@ class Layout extends Component {
 
     render () {
         // {/* <Route exact path="/" component={Index} /> */}
-        let route = (<PreTree user={this.state.loggedInUser} /> )
+        let route = (<Index loggedInUser={this.state.loggedInUser} /> )
 
         //If user is logged in but has no TreeHouse
         // if (this.state.loggedInUser.somethingHereToCheckIfTheUserHasTreeHouses === null) {
@@ -34,8 +34,9 @@ class Layout extends Component {
         // }
 
         //If user is logged in and belongs to a TreeHouse
+        //add logic to see if user has any THs
         if (this.state.loggedInUser != null) {
-            route = (<TreeHouse />)
+            route = (<PreTree loggedInUser={this.state.loggedInUser} />)
         }
 
         return (

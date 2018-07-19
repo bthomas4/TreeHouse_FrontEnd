@@ -46,14 +46,16 @@ class PreTree extends Component {
         })
     }
 
-    //func to handle submitCreateATree
+    //Func to handle submit on Create A Tree form
     submitCreateATree = (event) => {
         event.preventDefault();
-        const user = this.props.user;
+        const user = this.props.loggedInUser;
         const newTreeHouse = {
             user: user,
             treeHouseName: this.state.createTreeName
         }
+
+        console.log(user);
 
         axios.post('http://localhost:8080/createNewTreeHouse', newTreeHouse)
         .then(response => {
@@ -66,7 +68,7 @@ class PreTree extends Component {
         })
     }
 
-    //func to handle submitFindATree
+    //Func to handle submit on Find A Tree form
     submitFindATree = (event) => {
         event.preventDefault();
 
@@ -136,7 +138,7 @@ class PreTree extends Component {
                             <FormControl name="findEmail" value={this.state.findEmail} onChange={this.changeFormHandler} type="text"/>
                         </FormGroup>{' '}
                         <p className="space3"/>
-                        <Button type="submit" className="btn-block btn-lg" bsStyle="success">Send invitation</Button>
+                        <Button type="submit" className="btn-block btn-lg" bsStyle="success">Send Request</Button>
                     </Form>
                 </Modal>
             </React.Fragment>
