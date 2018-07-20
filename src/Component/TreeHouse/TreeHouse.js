@@ -19,17 +19,16 @@ class TreeHouse extends Component {
             treeHouse: this.props.userTrees[0]
         })
 
-        //Fetch initial TH members
-        this.getMembersFromTreeHouse(this.props.userTrees[0])
+        //Fetch TH members
+        this.getMembersFromTreeHouse(this.props.userTrees[0].treeHouseID)
     }
 
     //Get member's of a TH
     //Should be called by dropdown button in sidebar
-    getMembersFromTreeHouse = (id) => {
+    getMembersFromTreeHouse = (treeID) => {
         
         //Make a call to get all Users in the given TH
-        //Change to a POST
-        axios.get('http://localhost:8080/getAllTreeMembers', id)
+        axios.post('http://localhost:8080/getAllTreeMembers', treeID)
         .then(response => {
             this.setState({
                 members: response.data
@@ -37,6 +36,7 @@ class TreeHouse extends Component {
             console.log(this.state.members);
         })
     }
+    //Get TH member emails and treeIDs???????????
 
     render() {
         let routes = [

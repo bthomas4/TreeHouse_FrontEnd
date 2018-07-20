@@ -5,7 +5,6 @@ import {Grid, Row, Col, Image, Button} from 'react-bootstrap';
 class Generations extends Component {
     constructor(props) {
         super(props);
-        this.state = {allGens: []};
     }
 
     // componentDidMount() {
