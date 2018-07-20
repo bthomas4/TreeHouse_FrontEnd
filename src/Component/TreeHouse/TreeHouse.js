@@ -8,19 +8,28 @@ class TreeHouse extends Component {
     constructor(props) {
         super(props);
         this.state = {treeHouse: null, members: []}
+        this.getMembersFromTreeHouse = this.getMembersFromTreeHouse.bind(this);
     }
 
-    //Get member's of a TreeHouse
+    //Load a TreeHouse
     componentDidMount() {
-        
+
         //Set current TH
         this.setState({
             treeHouse: this.props.userTrees[0]
         })
 
-        //Make a call to get all Users in the TH at userTree[0]
+        //Fetch initial TH members
+        this.getMembersFromTreeHouse(this.props.userTrees[0])
+    }
+
+    //Get member's of a TH
+    //Should be called by dropdown button in sidebar
+    getMembersFromTreeHouse = (id) => {
+        
+        //Make a call to get all Users in the given TH
         //Change to a POST
-        axios.get('http://localhost:8080/getAllUsers', this.props.userTrees[0])
+        axios.get('http://localhost:8080/getAllTreeMembers', id)
         .then(response => {
             this.setState({
                 members: response.data
@@ -31,7 +40,7 @@ class TreeHouse extends Component {
 
     render() {
         let routes = [
-            <SideBar loggedInUser={this.props.loggedInUser}/>,
+            <SideBar userTrees={this.props.userTrees} loggedInUser={this.props.loggedInUser}/>,
             <MyCarousel />,
             <Generations members={this.state.members} />
         ];

@@ -24,6 +24,7 @@ class Layout extends Component {
         })
 
         //See if user has any TreeHouses
+        //Return treeID, genID, and maybe name
         axios.get('http:localhost:8080/searchForTrees', loggedInUser.email)
         .then(response => {
 

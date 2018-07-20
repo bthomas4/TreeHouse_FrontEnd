@@ -62,18 +62,19 @@ class SideBar extends Component {
                     <p className="space1"/>
 
                     <div className="profileMenu">
-                        {/* Put a button here to invite people to a TH */}
                         <Button onClick={this.openSendInvitationPressed} id="sideButton" bsSize="large" bsStyle="success">Send Invitation</Button>
                         <p className="space0" />
+                        
                         <ButtonToolbar>
                             <DropdownButton bsSize="large" title="TreeHouses" id="dropdown-size-default">
-                                    {/* Run a for loop here for all TreeHouses a user is in */}
-                                    <MenuItem eventKey="1">TreeHouse 1</MenuItem>
-                                    <MenuItem eventKey="2">TreeHouse 2</MenuItem>
+                                {this.props.userTrees.map((tree) => {
+                                    return (<MenuItem key={tree.treeHouseID} eventKey={tree.treeHouseID}>{tree.treeHouseID}</MenuItem>)
+                                })}
                                 <MenuItem divider />
                                 <MenuItem eventKey="4">Profile or Msgs</MenuItem>
                             </DropdownButton>
                         </ButtonToolbar>
+
                         <p className="space1"/>
                     </div>
 
@@ -102,9 +103,9 @@ class SideBar extends Component {
                         <p className="formFont">Select a TreeHouse:</p>
                         <p className="space1"/>                        
                         <DropdownButton onSelect={this.invitationMenuItemValueChange} value={this.state.invitationMenuValue} name="invitationMenuValue" title={this.state.invitationMenuValue} id="dropdown-size-large" bsSize="large" >
-                                {/* Run a for loop here for all TreeHouses a user has */}
-                                <MenuItem eventKey="Test">Sample 1</MenuItem>
-                                <MenuItem eventKey="Sample 2">Sample 2</MenuItem>
+                            {this.props.userTrees.map((tree) => {
+                                return (<MenuItem key={tree.treeHouseID} eventKey={tree.treeHouseID}>{tree.treeHouseID}</MenuItem>)
+                            })}
                         </DropdownButton>      
                         <p className="space3"/>
                         <p className="formFont">Who is being invited to this tree?</p>
