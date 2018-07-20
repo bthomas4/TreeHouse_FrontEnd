@@ -75,4 +75,5 @@ const createColumns = (props) => {
     )
 }
 
+
 export default Generations;

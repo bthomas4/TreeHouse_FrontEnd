@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Button, Alert} from 'react-bootstrap';
+import {Modal, Tabs, Tab, Button} from 'react-bootstrap';
 import axios from 'axios';
 
 class SignUp extends Component {
@@ -7,11 +7,20 @@ class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            openAboutModal: false,
             firstName: '',
             lastName: '',
             email: '',
             password: '',
         } 
+        this.takeATourButtonPressed = this.takeATourButtonPressed.bind(this);
+    }
+
+    //Handle Take A Tour button press
+    takeATourButtonPressed = (event) => {
+        this.setState({
+            openAboutModal: !this.state.openAboutModal
+        })
     }
 
     signUpChangeHandler = (event) => {
@@ -33,10 +42,10 @@ class SignUp extends Component {
 
         axios.post('http://localhost:8080/createNewPerson', user)
         .then(response => {
-            alert('User successfullly created! Please Log In');
+            alert('User created! Please Log In.');
             console.log("User was created!")})
         .catch(error => {
-            alert('User not created. Email is already in use.</h2></Alert');
+            alert('User not created. Email is already in use.');
             console.log("There was an error.")})
     }
 
@@ -63,28 +72,31 @@ class SignUp extends Component {
                     </div>
                     <p className="space3"></p>
                     <div className="signUpButton">
-                        <button type="submit" className="btn btn-success btn-lg btn-block">Sign Up</button>
+                        <Button type="submit" className="btn btn-success btn-lg btn-block">Sign Up</Button>
                     </div>
                 </form>
                 <div className="aboutContainer">
-                    <button type="submit" className="btn btn-default btn-lg btn-block aboutButton" id="aboutText">Take a tour</button>
+                    <Button onClick={this.takeATourButtonPressed} type="submit" className="btn btn-default btn-lg btn-block aboutButton" id="aboutText">Take a tour</Button>
                 </div>
             </div>
-            {/* <div className="">
-                <Modal.Dialog>
-                    <Modal.Header>
-                    <Modal.Title>Modal title</Modal.Title>
-                    </Modal.Header>
 
-                    <Modal.Body>One fine body...</Modal.Body>
+            <Modal show={this.state.openAboutModal} onHide={this.takeATourButtonPressed}>
+                <Modal.Header closeButton>
+                    <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                        <Tab eventKey={1} title="TreeHouse">
+                            <p>What TreeHouse aims to do</p>
+                        </Tab>
+                        <Tab eventKey={2} title="Tutorial">
+                            <p>A video or tip on how everything works</p>
+                        </Tab>
+                        <Tab eventKey={3} title="Pro Tips">
+                            <p>Suggestions to better your experience</p>
+                        </Tab>
+                    </Tabs>
+                </Modal.Header>
+            </Modal>
 
-                    <Modal.Footer>
-                    <Button>Close</Button>
-                    <Button bsStyle="primary">Save changes</Button>
-                    </Modal.Footer>
-                </Modal.Dialog>
-                </div>; */}
-            </div>
+        </div>
         )
     }
 }

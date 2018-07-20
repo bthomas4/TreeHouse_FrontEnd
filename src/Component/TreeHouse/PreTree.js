@@ -23,7 +23,6 @@ class PreTree extends Component {
 
     //Handle Create A Tree button
     createTreeButtonPressed = (event) => {
-        event.preventDefault();
         this.setState({
             openCreateForm: !this.state.openCreateForm
         })
@@ -31,7 +30,6 @@ class PreTree extends Component {
 
     //Handle Find A Tree button
     findTreeButtonPressed = (event) => {
-        event.preventDefault();
         this.setState({
             openFindForm: !this.state.openFindForm
         })

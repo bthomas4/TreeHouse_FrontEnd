@@ -26,13 +26,13 @@ class Header extends Component {
         }
 
         axios.post('http://localhost:8080/login', user)
-        .then(Response => {
+        .then(response => {
             console.log("Login successful")
-            const loggedInUserFromBackEnd = Response.data;
+            const loggedInUserFromBackEnd = response.data;
             this.props.setUser(loggedInUserFromBackEnd) })
         .catch(error => {
             console.log("Login fail");
-            <Alert bsStyle="danger"><h2>Invalid Email or Password.</h2></Alert>
+            alert('Invalid email or password.');
         })
     }
 

@@ -3,7 +3,6 @@ import axios from 'axios';
 import SideBar from '../SideBar/SideBar';
 import Generations from '../Generations/Generations';
 import MyCarousel from '../Carousel/MyCarousel';
-import PreTree from './PreTree';
 
 class TreeHouse extends Component {
     constructor(props) {
@@ -11,9 +10,17 @@ class TreeHouse extends Component {
         this.state = {treeHouse: null, members: []}
     }
 
-    //Change call to only get member's of a certain treeHouse
+    //Get member's of a TreeHouse
     componentDidMount() {
-        axios.get('http://localhost:8080/getAllUsers')
+        
+        //Set current TH
+        this.setState({
+            treeHouse: this.props.userTrees[0]
+        })
+
+        //Make a call to get all Users in the TH at userTree[0]
+        //Change to a POST
+        axios.get('http://localhost:8080/getAllUsers', this.props.userTrees[0])
         .then(response => {
             this.setState({
                 members: response.data
