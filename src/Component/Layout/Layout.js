@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
 import Index from '../Index/Index';
 import NavHeader from '../NavHeader/NavHeader';
 import TreeHouse from '../TreeHouse/TreeHouse';
@@ -24,15 +23,15 @@ class Layout extends Component {
         })
 
         //See if user has any TreeHouses
-        //Return treeID, genID, and maybe name
-        axios.get('http:localhost:8080/searchForTrees', loggedInUser.email)
+        axios.get('http://localhost:8080/searchForTrees', 
+        {params: {userEmail: user.email}} )
         .then(response => {
 
             //Set array with found TH IDs
             this.setState({
                 userTrees: response.data
             })
-            console.log(userTrees)
+            console.log(this.state.userTrees)
         })
     }
 

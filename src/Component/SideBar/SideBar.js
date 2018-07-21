@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import pic1 from '../../images/profile.jpg';
 import {ButtonToolbar, ListGroup, ListGroupItem, Modal, Form, FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
 
@@ -39,7 +39,6 @@ class SideBar extends Component {
             [name]: value
         })
     }
-/////////////////////////////////////////////////////////////////
     
     //Handle menuItemValueChange in Invitation form
     invitationMenuItemValueChange = (value) => {
@@ -48,17 +47,13 @@ class SideBar extends Component {
         })
     }
 
-/* ///////////////////////////////////////////////////////////////// */
-
-    testIt = (event) => {
-        alert('it worked')
-    }
-    
     render () {
+
+
         return (
             <React.Fragment>
                 <div className="profileSideNav">
-                    <img className="profilePic img-circle" src={pic1} alt="Profile Picture" />
+                    <img className="profilePic img-circle" src={pic1} alt="Profile" />
                     <p className="space1"/>
 
                     <div className="profileMenu">
@@ -67,8 +62,10 @@ class SideBar extends Component {
                         
                         <ButtonToolbar>
                             <DropdownButton bsSize="large" title="TreeHouses" id="dropdown-size-default">
-                                {this.props.userTrees.map((tree) => {
-                                    return (<MenuItem key={tree.treeHouseID} eventKey={tree.treeHouseID}>{tree.treeHouseID}</MenuItem>)
+                                {this.props.userTrees.map((tree, index) => {
+                                    return (
+                                        <MenuItem key={index}>{tree.treeHouseName}</MenuItem>
+                                    )
                                 })}
                                 <MenuItem divider />
                                 <MenuItem eventKey="4">Profile or Msgs</MenuItem>
@@ -103,8 +100,10 @@ class SideBar extends Component {
                         <p className="formFont">Select a TreeHouse:</p>
                         <p className="space1"/>                        
                         <DropdownButton onSelect={this.invitationMenuItemValueChange} value={this.state.invitationMenuValue} name="invitationMenuValue" title={this.state.invitationMenuValue} id="dropdown-size-large" bsSize="large" >
-                            {this.props.userTrees.map((tree) => {
-                                return (<MenuItem key={tree.treeHouseID} eventKey={tree.treeHouseID}>{tree.treeHouseID}</MenuItem>)
+                            {this.props.userTrees.map((tree, index) => {
+                                return (
+                                    <MenuItem key={index}>{tree.treeHouseName}</MenuItem>
+                                )
                             })}
                         </DropdownButton>      
                         <p className="space3"/>

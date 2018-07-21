@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {Alert} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
 import logo from "../../images/tree1.png";
 
@@ -41,7 +39,7 @@ class Header extends Component {
         let rightSide = null;
         let leftSide = (
             <React.Fragment>
-                <img className="navLogo" src={logo}/>
+                <img className="navLogo" src={logo} alt="" />
                 <p className="navbar-brand" id="navBrand">TreeHouse</p>
             </React.Fragment>
         )
