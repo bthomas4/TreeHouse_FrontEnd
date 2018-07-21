@@ -14,6 +14,8 @@ class Layout extends Component {
             userTrees: []
         }
         this.setUser = this.setUser.bind(this);
+        this.searchForTrees = this.searchForTrees.bind(this);
+        this.addToUserTrees = this.addToUserTrees.bind(this);
     }
 
     //Keeping user in layout component to manage components
@@ -21,17 +23,26 @@ class Layout extends Component {
         this.setState({
             loggedInUser: user
         })
+        this.searchForTrees(user.email);
+    }
 
-        //See if user has any TreeHouses
+    //Search and update userTrees
+    searchForTrees = (email) => {
         axios.get('http://localhost:8080/searchForTrees', 
-        {params: {userEmail: user.email}} )
+        {params: {userEmail: email}} )
         .then(response => {
 
             //Set array with found TH IDs
+            const trees = response.data
             this.setState({
-                userTrees: response.data
+                userTrees: trees
             })
-            console.log(this.state.userTrees)
+        })
+    }
+
+    addToUserTrees = (tree) => {
+        this.setState({
+        userTrees: [...this.state.userTrees, tree]
         })
     }
 
@@ -40,13 +51,13 @@ class Layout extends Component {
         let route = (<Index /> )
 
         //If user is logged in but has no THs
-        if (this.state.loggedInUser != null && this.state.userTrees === null) {
-            route = (<PreTree loggedInUser={this.state.loggedInUser} />)
+        if (this.state.loggedInUser !== null && this.state.userTrees.length === 0) {
+            route = (<PreTree loggedInUser={this.state.loggedInUser} addToUserTrees={this.addToUserTrees} />)
         }
 
         //If user is logged in and has a TH
-        if (this.state.loggedInUser != null && this.state.userTrees != null) {
-            route = (<TreeHouse loggedInUser={this.state.loggedInUser} userTrees={this.state.userTrees} />)
+        if (this.state.loggedInUser !== null && this.state.userTrees.length !== 0) {
+            route = (<TreeHouse loggedInUser={this.state.loggedInUser} userTrees={this.state.userTrees} searchForTrees={this.searchForTrees} />)
         }
 
         return (

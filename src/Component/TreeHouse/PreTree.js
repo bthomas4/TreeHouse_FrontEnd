@@ -52,18 +52,19 @@ class PreTree extends Component {
             user: user,
             treeHouseName: this.state.createTreeName
         }
-
         console.log(user);
 
         axios.post('http://localhost:8080/createNewTreeHouse', newTreeHouse)
         .then(response => {
-            console.log('Tree was created')})
+            console.log('Tree was created');
+            })
         .catch(error => {
             console.log('There was an error')})
         
         this.setState({
             openCreateForm: !this.state.openCreateForm
         })
+        this.props.addToUserTrees(newTreeHouse);
     }
 
     //Func to handle submit on Find A Tree form

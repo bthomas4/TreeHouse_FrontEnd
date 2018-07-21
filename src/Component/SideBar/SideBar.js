@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import pic1 from '../../images/profile.jpg';
+import def from '../../images/defaultUserPic.png';
 import {ButtonToolbar, ListGroup, ListGroupItem, Modal, Form, FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
 
 class SideBar extends Component {
@@ -19,15 +19,14 @@ class SideBar extends Component {
     }
     
     //Handle Send Invitation button
-    openSendInvitationPressed = (event) => {
-        event.preventDefault();
+    openSendInvitationPressed = () => {
         this.setState({
             openSendInvitationForm: !this.state.openSendInvitationForm
         })
     }
 
     //Func to handle submit on Send Invitation form
-    submitSendInvitation = (event) => {
+    submitSendInvitation = () => {
         alert('submit button works')
     }
 
@@ -53,7 +52,7 @@ class SideBar extends Component {
         return (
             <React.Fragment>
                 <div className="profileSideNav">
-                    <img className="profilePic img-circle" src={pic1} alt="Profile" />
+                    <img className="profilePic img-circle" src={def} alt="Profile" />
                     <p className="space1"/>
 
                     <div className="profileMenu">
