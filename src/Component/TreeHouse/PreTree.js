@@ -13,8 +13,7 @@ class PreTree extends Component {
             findTreeName: '',
             findFirstName: '',
             findLastName: '',
-            findEmail: ''
-        }
+            findEmail: '' }
         this.createTreeButtonPressed = this.createTreeButtonPressed.bind(this);
         this.findTreeButtonPressed = this.findTreeButtonPressed.bind(this);
         this.submitCreateATree = this.submitCreateATree.bind(this);
@@ -50,9 +49,7 @@ class PreTree extends Component {
         const user = this.props.loggedInUser;
         const newTreeHouse = {
             user: user,
-            treeHouseName: this.state.createTreeName
-        }
-        console.log(user);
+            treeHouseName: this.state.createTreeName }
 
         axios.post('http://localhost:8080/createNewTreeHouse', newTreeHouse)
         .then(response => {

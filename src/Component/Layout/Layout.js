@@ -11,8 +11,7 @@ class Layout extends Component {
         super(props);
         this.state = {
             loggedInUser: null,
-            userTrees: []
-        }
+            userTrees: [] }
         this.setUser = this.setUser.bind(this);
         this.searchForTrees = this.searchForTrees.bind(this);
         this.addToUserTrees = this.addToUserTrees.bind(this);

@@ -9,6 +9,10 @@ body {
   justify-content: center;
 }
 
+.center-text {
+  text-align: center;
+}
+
 .inline {
   display: inline-block;
 }
@@ -32,6 +36,10 @@ body {
   width: 90%;
 }
 
+#goRight {
+  float: right;
+}
+
 /*--------------------- Forms classes ---------------------*/
 .formBox1 {
   padding: 4% 25% 4% 25%;
@@ -41,8 +49,18 @@ body {
   padding: 4% 25% 4% 25%;
 }
 
+.formBox3 {
+  padding: 4% 20% 4% 20%;
+}
+
 .formFont {
   font-size: 20px;
+  color: rgb(49, 180, 67);
+}
+
+.formFont2 {
+  text-align: center;
+  font-size: 30px;
   color: rgb(49, 180, 67);
 }
 
@@ -119,14 +137,14 @@ body {
 }
 
 .profilePic {
-  width: 210px;
-  height: 210px;
+  width: 220px;
+  height: 220px;
   padding: 8%;
 }
 
 .profileMenu {
   width: 100%;
-  padding-left: 30px;
+  padding-left: 13px;
   padding-bottom: 5px;
   font-size: 20px;
 }
@@ -152,13 +170,19 @@ body {
   background-color: rgb(240, 239, 239);
 }
 
+.noMsg {
+  padding-top: 10%;
+  color: grey;
+  text-align: center;
+}
+
 #treeFont {
   color: rgb(26, 175, 46);
   text-shadow: 0px 0px 0px rgb(60, 20, 2), 1px 2px 2px rgb(236, 236, 236);
 }
 
 #sideButton {
-  width: 147px;
+  width: 190px;
 }
 
 /*--------------------- Carousel classes ---------------------*/

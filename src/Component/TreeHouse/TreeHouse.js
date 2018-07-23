@@ -10,11 +10,16 @@ class TreeHouse extends Component {
         super(props);
         this.state = {
             members: [],
+            messages: [],
             userToPreview: null,
+            openRelationship: false,
             openProfile: false }
         this.getMembersFromTreeHouse = this.getMembersFromTreeHouse.bind(this);
-        this.handleProfilePressed = this.handleProfilePressed.bind(this);
+        this.getMessagesForUser = this.getMessagesForUser.bind(this);
+        this.handleOpenProfile = this.handleOpenProfile.bind(this);
+        this.handleOpenRelationship = this.handleOpenRelationship.bind(this);
         this.handleCloseProfile = this.handleCloseProfile.bind(this);
+        this.handleCloseRelationship = this.handleCloseRelationship.bind(this);
     }
 
     handleCloseProfile() {
@@ -23,8 +28,17 @@ class TreeHouse extends Component {
         })
     }
 
+    handleCloseRelationship() {
+        this.setState({
+            openRelationship: !this.state.openRelationship
+        })
+    }
 
-    handleProfilePressed = (user) => {
+
+
+
+
+    handleOpenProfile = (user) => {
 
         //called from a Generation card View button
         //needs to load the selected person's profile info
@@ -34,14 +48,19 @@ class TreeHouse extends Component {
         })
     }
 
+    handleOpenRelationship = () => {
 
+        //called from a gen Card button
+        //open the setRelationship form modal
 
-
-    //Load a TreeHouse
-    componentDidMount() { 
-        //Fetch TH members
-        this.getMembersFromTreeHouse(this.props.userTrees[0])       
+        this.setState({
+            openRelationship: !this.state.openRelationship
+        })
     }
+
+
+
+
 
     //Get member's of a TH
     getMembersFromTreeHouse = (tree) => {
@@ -58,11 +77,34 @@ class TreeHouse extends Component {
         })
     }
 
+    getMessagesForUser() {
+        //Make axios call to get all Messages for the loggedInUser
+        const user = {email: this.props.loggedInUser.email}
+
+        axios.post('http://localhost:8080/getMessagesForUser', user)
+        .then(response => {
+            const msgs = response.data
+            this.setState({
+                messages: msgs
+            })
+            console.log(msgs)
+        })
+    }
+
+     //Load a TreeHouse
+     componentDidMount() { 
+        //Fetch TH members
+        // this.getMembersFromTreeHouse(this.props.userTrees[0])  
+        
+        //Load messages for the user
+        this.getMessagesForUser()
+    }
+
     render() {
 
         return (
             <div className="treeHouse">
-                <SideBar userTrees={this.props.userTrees} loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />,
+                <SideBar userTrees={this.props.userTrees} messages={this.state.messages} loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />,
                 {/* <MyCarousel />, */}
                 <Generations members={this.state.members} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />
 
@@ -86,6 +128,10 @@ class TreeHouse extends Component {
                         </Tabs>
                     </Modal.Header>
                 </Modal>  
+
+                <Modal show={this.state.openRelationship} onHide={this.handleCloseRelationship} >
+
+                </Modal>
             </div>
         ) 
     }

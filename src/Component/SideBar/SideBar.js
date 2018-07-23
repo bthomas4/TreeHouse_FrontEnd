@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import def from '../../images/defaultUserPic.png';
 import {ButtonToolbar, ListGroup, ListGroupItem, Modal, Form, FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
+import axios from 'axios';
 
 class SideBar extends Component {
     constructor(props) {
@@ -9,28 +10,77 @@ class SideBar extends Component {
             dropDownTree: props.userTrees[0],
             invitationMenuTree: props.userTrees[0],
             openSendInvitationForm: false,
+            openInvitation: false,
+            openRelation: false,
+            currentMessage: '',
             inviteeFirstName: '',
             inviteeLastName: '',
-            inviteeEmail: '',
-            selectedTree: null }
+            inviteeEmail: '' }
         this.openSendInvitationPressed = this.openSendInvitationPressed.bind(this);
+        this.handleOpenMessage = this.handleOpenMessage.bind(this);
         this.submitSendInvitation = this.submitSendInvitation.bind(this);
         this.invitationMenuItemValueChange = this.invitationMenuItemValueChange.bind(this);
         this.dropDownTreeChange - this.dropDownTreeChange.bind(this);
+        this.handleCloseInvitation = this.handleCloseInvitation.bind(this);
+        this.handleCloseRelation = this.handleCloseRelation.bind(this);
     }
     
     //Handle Send Invitation button
-    openSendInvitationPressed = () => {
+    openSendInvitationPressed() {
         this.setState({
             openSendInvitationForm: !this.state.openSendInvitationForm
         })
     }
 
+    //Handle open Message
+    handleOpenMessage = (message) => {
+        this.setState({
+            currentMessage: message,
+        })
+        if (message.subject === "Invitation") {
+            this.setState({
+                openInvitation: !this.state.openInvitation
+            })
+        }
+        else if (message.subject === "Relationship") {
+            this.setState({
+                openRelation: !this.state.openRelation
+            })
+        }
+    }
+
+    //Handle close Relation
+    handleCloseRelation() {
+        this.setState({
+            openRelation: !this.state.openRelation
+        })
+    }
+
+    //Handle close Invitation
+    handleCloseInvitation() {
+        this.setState({
+            openInvitation: !this.state.openInvitation
+        })
+    }
+
     //Func to handle submit on Send Invitation form
     submitSendInvitation = () => {
-        //Need to get and submit the treeID from invitationMenuTree
-        //This needs to create a new Message
-        alert('submit Invitation button works')
+        const message = {
+            subject: 'Invitation',
+            treeID: this.state.invitationMenuTree.treeHouseID,
+            receiver: this.state.inviteeEmail,
+            sender: this.props.loggedInUser.email }
+
+        const inviteUserToTreeHouse = {
+            inviteeFirstName: this.state.inviteeFirstName,
+            inviteeLastName: this.state.inviteeLastName,
+            message: message }
+
+        //axios call passing the message 
+        axios.post('http://localhost:8080/inviteUserToTreeHouse', inviteUserToTreeHouse)
+        .then(response => {
+            console.log('message sent')
+        })
     }
 
     //Handle change in forms
@@ -61,8 +111,50 @@ class SideBar extends Component {
     }
 
     render () {
+        let messageAlert = '';
+        if (this.props.messages.length === 0) {
+            messageAlert = 'No messages'
+        }
+        let invitationModal = null;
+        let relationModal = null;
+
+        if (this.props.messages !== null && this.props.messages.length > 0) {
+            invitationModal =
+                <Modal show={this.state.openInvitation} onHide={this.handleCloseInvitation}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sender: {this.state.currentMessage.sender}</Modal.Title>
+                    </Modal.Header>
+                    <div className="formBox3">
+                        <p className="formFont2">You've been invited!</p>
+                        <p className="space2" />
+                        <h2 className="center-text">{this.state.currentMessage.treeID} Family TreeHouse</h2>
+                        <div className="preTreeHeader">
+                            <Button bsStyle="success" bsSize="large">Accept</Button>
+                            <Button bsSize="large" bsStyle="danger">Decline</Button>
+                        </div>
+                    </div>
+                </Modal>
+        }
+
+        if (this.props.messages !== null && this.props.messages.length > 0) {
+            relationModal =
+                <Modal show={this.state.openRelation} onHide={this.handleCloseRelation}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>New Relationship Request</Modal.Title>
+                    </Modal.Header>
+                    <h1>Please review this request</h1>
+                    <p>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.sender}</p>
+                    <p>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiver}</p>
+                    <p>TreeHouse: {this.state.currentMessage.treeID}</p>
+                    <Button bsStyle="success">Accept</Button><Button bsStyle="danger">Decline</Button>
+                </Modal>
+        }
+
         return (
             <React.Fragment>
+                {invitationModal}
+                {relationModal}
+
                 <div className="profileSideNav">
                     <img className="profilePic img-circle" src={def} alt="Profile" />
                     <p className="space1"/>
@@ -72,7 +164,7 @@ class SideBar extends Component {
                         <p className="space0" />
 
                         <ButtonToolbar>
-                            <DropdownButton onSelect={this.dropDownTreeChange} title={this.state.dropDownTree.treeHouseName} bsSize="large" id="dropdown-size-default">
+                            <DropdownButton onSelect={this.dropDownTreeChange} title={this.state.dropDownTree.treeHouseName} bsSize="large" id="sideButton">
                                 {this.props.userTrees.map((tree, index) => {
                                     return (
                                         <MenuItem key={index} eventKey={tree}>{tree.treeHouseName}</MenuItem>
@@ -87,20 +179,16 @@ class SideBar extends Component {
 
                     <div className="profileMessageContainer">
                         <ListGroup>
-                            {/* loop to get these after testing */}
-                            <ListGroupItem onClick={this.testIt}>Item 1</ListGroupItem>
-                            <ListGroupItem>Item 2</ListGroupItem>
-                            <ListGroupItem>Item 3</ListGroupItem>
-                            <ListGroupItem>Item 4</ListGroupItem>
-                            <ListGroupItem>Item 5</ListGroupItem>
-                            <ListGroupItem>Item 6</ListGroupItem>
-                            <ListGroupItem>Item 7</ListGroupItem>
-                            <ListGroupItem>Item 8</ListGroupItem>
-                            <ListGroupItem>Item 9</ListGroupItem>
+                            {this.props.messages.map((message, index) => {
+                                return (
+                                    <ListGroupItem key={index}>{message.subject}<Button onClick={() => this.handleOpenMessage(message)} bsStyle="success" bsSize="small" id="goRight">View</Button></ListGroupItem>
+                                )
+                            })}
+                            <p className="noMsg">{messageAlert}</p>
                         </ListGroup>
+                        
                     </div>
                 </div>
-
 
                 <Modal show={this.state.openSendInvitationForm} onHide={this.openSendInvitationPressed} >
                     <Modal.Header closeButton>
@@ -137,7 +225,7 @@ class SideBar extends Component {
                         <p className="space3"/>
                         <Button type="submit" className="btn-block btn-lg" bsStyle="success">Send Invitation</Button>
                     </Form>
-                </Modal>             
+                </Modal>
             </React.Fragment>
         )
     }
