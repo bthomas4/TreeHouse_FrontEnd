@@ -42,7 +42,7 @@ class Layout extends Component {
 
     addToUserTrees = (tree) => {
         this.setState({
-        userTrees: [...this.state.userTrees, tree]
+            userTrees: [...this.state.userTrees, tree]
         })
     }
 
