@@ -36,6 +36,7 @@ class Layout extends Component {
             this.setState({
                 userTrees: trees
             })
+            console.log(trees)
         })
     }
 

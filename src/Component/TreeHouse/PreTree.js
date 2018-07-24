@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Alert, Button, Form, FormGroup, FormControl, ControlLabel, Modal} from 'react-bootstrap';
 import axios from 'axios';
-import Generations from '../Generations/Generations';
 
 class PreTree extends Component {
     constructor(props) {

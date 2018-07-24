@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import SideBar from '../SideBar/SideBar';
 import Generations from '../Generations/Generations';
-import {Modal, Form, Button, FormControl, FormGroup, ControlLabel, Tab, Tabs} from 'react-bootstrap';
+import {Modal, Tab, Tabs} from 'react-bootstrap';
 import MyCarousel from '../Carousel/MyCarousel';
 
 class TreeHouse extends Component {
@@ -34,10 +34,6 @@ class TreeHouse extends Component {
         })
     }
 
-
-
-
-
     handleOpenProfile = (user) => {
 
         //called from a Generation card View button
@@ -58,10 +54,6 @@ class TreeHouse extends Component {
         })
     }
 
-
-
-
-
     //Get member's of a TH
     getMembersFromTreeHouse = (tree) => {
         console.log(tree)
@@ -73,6 +65,7 @@ class TreeHouse extends Component {
             this.setState({
                 members: members
             })
+            console.log('should see members array')
             console.log(members);
         })
     }
@@ -87,21 +80,19 @@ class TreeHouse extends Component {
             this.setState({
                 messages: msgs
             })
-            console.log(msgs)
         })
     }
 
      //Load a TreeHouse
      componentDidMount() { 
         //Fetch TH members
-        // this.getMembersFromTreeHouse(this.props.userTrees[0])  
+        this.getMembersFromTreeHouse(this.props.userTrees[0])  
         
         //Load messages for the user
         this.getMessagesForUser()
     }
 
     render() {
-
         return (
             <div className="treeHouse">
                 <SideBar userTrees={this.props.userTrees} messages={this.state.messages} loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />,
