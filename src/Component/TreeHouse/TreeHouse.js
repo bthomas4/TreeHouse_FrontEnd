@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import SideBar from '../SideBar/SideBar';
+import Messages from '../SideBar/Messages';
 import Generations from '../Generations/Generations';
 import {Modal, Tab, Tabs} from 'react-bootstrap';
 import MyCarousel from '../Carousel/MyCarousel';
@@ -12,51 +13,35 @@ class TreeHouse extends Component {
             members: [],
             messages: [],
             userToPreview: null,
-            openRelationship: false,
             openProfile: false }
         this.getMembersFromTreeHouse = this.getMembersFromTreeHouse.bind(this);
         this.getMessagesForUser = this.getMessagesForUser.bind(this);
         this.handleOpenProfile = this.handleOpenProfile.bind(this);
-        this.handleOpenRelationship = this.handleOpenRelationship.bind(this);
         this.handleCloseProfile = this.handleCloseProfile.bind(this);
-        this.handleCloseRelationship = this.handleCloseRelationship.bind(this);
+        this.acceptTreeInvitation = this.acceptTreeInvitation.bind(this);
     }
 
+    //Close a member's story
     handleCloseProfile() {
         this.setState({
             openProfile: !this.state.openProfile
         })
     }
 
-    handleCloseRelationship() {
-        this.setState({
-            openRelationship: !this.state.openRelationship
-        })
-    }
-
+    //Open a member's story
     handleOpenProfile = (user) => {
 
         //called from a Generation card View button
         //needs to load the selected person's profile info
 
         this.setState({
-            openProfile: !this.state.openProfile
+            openProfile: !this.state.openProfile,
+            userToPreview: user
         })
     }
 
-    handleOpenRelationship = () => {
-
-        //called from a gen Card button
-        //open the setRelationship form modal
-
-        this.setState({
-            openRelationship: !this.state.openRelationship
-        })
-    }
-
-    //Get member's of a TH
+    //Get all members of a TreeHouse
     getMembersFromTreeHouse = (tree) => {
-        console.log(tree)
        
         //Make a call to get all Users in the given TH
         axios.post('http://localhost:8080/getAllTreeMembers', tree)
@@ -65,14 +50,13 @@ class TreeHouse extends Component {
             this.setState({
                 members: members
             })
-            console.log('should see members array')
-            console.log(members);
         })
     }
 
+    //Get all messages for a user
     getMessagesForUser() {
-        //Make axios call to get all Messages for the loggedInUser
-        const user = {email: this.props.loggedInUser.email}
+        const user = {
+            email: this.props.loggedInUser.email }
 
         axios.post('http://localhost:8080/getMessagesForUser', user)
         .then(response => {
@@ -83,8 +67,31 @@ class TreeHouse extends Component {
         })
     }
 
-     //Load a TreeHouse
-     componentDidMount() { 
+    //Accept a invitation to a new TreeHouse
+    acceptTreeInvitation = (treeID, messageID) => {
+        const personTreeHouse = {
+            personEmail: this.props.loggedInUser.email,
+            treeHouseID: treeID }
+
+        axios.post('http://localhost:8080/acceptInvitation', personTreeHouse)
+        .then(response => {
+            this.props.searchForTrees(this.props.loggedInUser.email);
+        })
+
+        axios.get('http://localhost:8080/removeMessage', {params: {id: messageID}})
+        .then(response => {
+            let newMsgs = [...this.state.messages];
+            let index = newMsgs.findIndex(message => message.messageID === messageID);
+            newMsgs.splice(index, 1);
+
+            this.setState({
+                messages: newMsgs
+            })
+        })
+    }
+
+    //Load TH and messages
+    componentDidMount() { 
         //Fetch TH members
         this.getMembersFromTreeHouse(this.props.userTrees[0])  
         
@@ -95,7 +102,8 @@ class TreeHouse extends Component {
     render() {
         return (
             <div className="treeHouse">
-                <SideBar userTrees={this.props.userTrees} messages={this.state.messages} loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />,
+                <SideBar userTrees={this.props.userTrees}  loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />,
+                <Messages messages={this.state.messages} acceptTreeInvitation={this.acceptTreeInvitation} loggedInUser={this.props.loggedInUser} />,
                 {/* <MyCarousel />, */}
                 <Generations members={this.state.members} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />
 
