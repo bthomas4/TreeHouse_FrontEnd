@@ -26,6 +26,7 @@ class SideBar extends Component {
         })
     }
 
+//WHY DOES THIS LOG THE CURRENT USER OUT
     //Func to handle submit on Send Invitation form
     submitSendInvitation = () => {
         const message = {
@@ -79,9 +80,9 @@ class SideBar extends Component {
             <React.Fragment>
                 <div className="profileSideNav">
                     <img className="profilePic img-circle" src={def} alt="Profile" />
-                    <p className="space0"/>
+                    <p className="space0"></p>
 
-                    <div className="profileMenu" id="highZ">
+                    <div className="profileMenu">
                         <ButtonToolbar>
                             <DropdownButton onSelect={this.dropDownTreeChange} title={this.state.dropDownTree.treeHouseName} bsSize="large" id="sideButton">
                                 {this.props.userTrees.map((tree, index) => {

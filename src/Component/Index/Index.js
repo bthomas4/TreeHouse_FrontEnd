@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Modal, Tabs, Tab, Button} from 'react-bootstrap';
 import axios from 'axios';
+import logo from '../../images/tree1.png'
 
 class SignUp extends Component {
     
@@ -52,31 +53,31 @@ class SignUp extends Component {
     render () {
         return (
             <div className="index">
-            <div className="signUpForm">
-                <form onSubmit={this.signUpSubmitHandler} className="signUpBox">
-                    <div className="form-group">
-                        <label className="signUpLabel" htmlFor="exampleInputfName"><span id="req">*</span>First Name</label>
-                        <input onChange={this.signUpChangeHandler} name='firstName' value={this.state.firstName} id='exampleInputfName' type="text" className="form-control" />
-                    </div>
-                    <div className="form-group">
-                        <label className="signUpLabel" htmlFor="exampleInputlName"><span id="req">*</span>Last Name</label>
-                        <input onChange={this.signUpChangeHandler} name='lastName' value={this.state.lastName} id='exampleInputlName' type="text" className="form-control" />
-                    </div>
-                    <div className="form-group">
-                        <label className="signUpLabel" htmlFor="exampleInputEmail1"><span id="req">*</span>Email</label>
-                        <input onChange={this.signUpChangeHandler} name='email' value={this.state.email} id='exampleInputEmail1' type="text" className="form-control" />
-                    </div>
-                    <div className="form-group">
-                        <label className="signUpLabel" htmlFor="exampleInputPassword1"><span id="req">*</span>Password</label>
-                        <input onChange={this.signUpChangeHandler} name='password' value={this.state.password} id='exampleInputPassword1' type="password" className="form-control" />
-                    </div>
-                    <p className="space3"></p>
-                    <div className="signUpButton">
-                        <Button type="submit" className="btn btn-success btn-lg btn-block">Sign Up</Button>
-                    </div>
-                </form>
-                <div className="aboutContainer">
-                    <Button onClick={this.takeATourButtonPressed} type="submit" className="btn btn-default btn-lg btn-block aboutButton" id="aboutText">Take a tour</Button>
+                <div className="signUpForm">
+                    <form onSubmit={this.signUpSubmitHandler} className="signUpBox">
+                        <div className="form-group">
+                            <label className="signUpLabel" htmlFor="exampleInputfName"><span id="req">*</span>First Name</label>
+                            <input onChange={this.signUpChangeHandler} name='firstName' value={this.state.firstName} id='exampleInputfName' type="text" className="form-control" />
+                        </div>
+                        <div className="form-group">
+                            <label className="signUpLabel" htmlFor="exampleInputlName"><span id="req">*</span>Last Name</label>
+                            <input onChange={this.signUpChangeHandler} name='lastName' value={this.state.lastName} id='exampleInputlName' type="text" className="form-control" />
+                        </div>
+                        <div className="form-group">
+                            <label className="signUpLabel" htmlFor="exampleInputEmail1"><span id="req">*</span>Email</label>
+                            <input onChange={this.signUpChangeHandler} name='email' value={this.state.email} id='exampleInputEmail1' type="text" className="form-control" />
+                        </div>
+                        <div className="form-group">
+                            <label className="signUpLabel" htmlFor="exampleInputPassword1"><span id="req">*</span>Password</label>
+                            <input onChange={this.signUpChangeHandler} name='password' value={this.state.password} id='exampleInputPassword1' type="password" className="form-control" />
+                        </div>
+                        <p className="space3"></p>
+                        <div className="signUpButton">
+                            <Button type="submit" className="btn btn-success btn-lg btn-block">Sign Up</Button>
+                        </div>
+                    </form>
+                    <div className="aboutContainer">
+                        <Button onClick={this.takeATourButtonPressed} type="submit" className="btn btn-default btn-lg btn-block aboutButton" id="aboutText">Take a tour</Button>
                 </div>
             </div>
 
@@ -84,7 +85,23 @@ class SignUp extends Component {
                 <Modal.Header closeButton>
                     <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                         <Tab eventKey={1} title="TreeHouse">
-                            <p>What TreeHouse aims to do</p>
+                            <div className="">
+                                <div className="aboutTree">
+                                    <img className="navLogo2" src={logo} alt="" />
+                                    <div className="aboutQuestions">
+                                        <p className="formFont3">What is TreeHouse?</p>
+                                        <p className="formFont3">What do we do?</p>
+                                        <p className="formFont3">Why TreeHouse?</p>
+                                    </div>
+
+                                </div>
+                                <p>TreeHouse is a private family tree web application.</p>
+
+                                <p>It lets family members create and share stories about themselves and the lives they lived.</p>
+
+                                <p>It lets family members create and share stories about themselves and the lives they lived.</p>
+
+                            </div>
                         </Tab>
                         <Tab eventKey={2} title="Tutorial">
                             <p>A video or tip on how everything works</p>

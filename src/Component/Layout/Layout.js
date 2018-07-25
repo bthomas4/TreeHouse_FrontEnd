@@ -56,7 +56,7 @@ class Layout extends Component {
         }
 
         //If user is logged in and has a TH
-        if (this.state.loggedInUser !== null && this.state.userTrees.length !== 0) {
+        if (this.state.loggedInUser !== null && this.state.userTrees.length > 0) {
             route = (<TreeHouse loggedInUser={this.state.loggedInUser} userTrees={this.state.userTrees} searchForTrees={this.searchForTrees} />)
         }
 

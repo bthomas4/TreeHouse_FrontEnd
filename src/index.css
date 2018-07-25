@@ -26,6 +26,27 @@ body {
   position: fixed;
 }
 
+.aboutTree {
+  margin-top: 20px;
+  display: inline-flex;
+}
+
+.formFont3 {
+  text-align: left;
+  font-size: 28px;
+  color: rgb(49, 180, 67);
+}
+
+.aboutQuestions {
+  margin-top: 10px;
+}
+
+.navLogo2 {
+  margin-bottom: 20px;
+  width: 200px;
+  height: 150px;
+}
+
 .alert {
   text-align: center;
   width: 400px;

@@ -65,14 +65,15 @@ class Messages extends Component {
                 <Modal show={this.state.openInvitation} onHide={this.handleCloseInvitation}>
                     <Modal.Header closeButton>
 
-        {/* not sure why I can't get the value of an object attribute */}
-                        {/* <Modal.Title>Sender: {this.state.currentMessage.senderPerson.firstName} {this.state.currentMessage.sender} </Modal.Title> */}
-                    
+{/* not sure why I can't get the value of an object attribute */}
+                        {/* <Modal.Title>Sender: {this.state.currentMessage.senderPerson.firstName} {this.state.currentMessage.sender} </Modal.Title> */}                    
                     </Modal.Header>
                     <div className="formBox3">
                         <p className="formFont2">You've been invited!</p>
                         <p className="space2" />
-                        <h2 className="center-text">{this.state.currentMessage.treeID} Family TreeHouse</h2>
+
+{/* not sure why I can't get the value of an object attribute */}
+                        {/* <h2 className="center-text">{this.state.currentMessage.treeHouse.treeHouseName} Family TreeHouse</h2> */}
                         <div className="preTreeHeader">
                             <Button onClick={this.handleAcceptInvitation} bsStyle="success" bsSize="large">Accept</Button>
                             <Button bsSize="large" bsStyle="danger">Decline</Button>
