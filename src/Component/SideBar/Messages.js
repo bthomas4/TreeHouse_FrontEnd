@@ -22,6 +22,7 @@ class Messages extends Component {
         this.setState({
             currentMessage: message,
         })
+        console.log(message);
         if (message.subject === "Invitation") {
             this.setState({
                 openInvitation: !this.state.openInvitation
@@ -48,11 +49,22 @@ class Messages extends Component {
         })
     }
 
+
+
+
+
+    
     //Accept a Relation Request
     handleAcceptRelation() {
         this.props.acceptRelationRequest();
         this.handleCloseRelation();
     }
+
+
+
+
+
+
 
     //Handle accept an invitation
     handleAcceptInvitation() {
@@ -91,7 +103,7 @@ class Messages extends Component {
                     <div className="formBox3">
                         <p className="formFont2">You've been invited!</p>
                         <p className="space2" />
-                        <h2 className="center-text">{this.state.currentMessage.treeHouse.treeHouseName} Family TreeHouse</h2>
+                        <h2 className="center-text">{this.state.currentMessage.treeHouse.treeHouseName} TreeHouse</h2>
                         <div className="preTreeHeader">
                             <Button onClick={this.handleAcceptInvitation} bsStyle="success" bsSize="large">Accept</Button>
                             <Button onClick={this.declineInvitation} bsSize="large" bsStyle="danger">Decline</Button>
@@ -107,15 +119,17 @@ class Messages extends Component {
             relationModal =
                 <Modal show={this.state.openRelation} onHide={this.handleCloseRelation}>
                     <Modal.Header closeButton>
-                        <Modal.Title>New Relationship Request</Modal.Title>
+                        <Modal.Title>Relation Request</Modal.Title>
                     </Modal.Header>
-                    <h1>Please review this request</h1>
-                    <p>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.sender}</p>
-                    <p>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiver}</p>
-                    <p>TreeHouse: {this.state.currentMessage.treeID}</p>
+                    <div className="formBox3">
+                        <h4>Please review the following relation:</h4>
+                        <p>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.senderPerson.firstName}</p>
+                        <p>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiverPerson.firstName}</p>
+                        <p>{this.state.currentMessage.treeHouse.treeHouseName} TreeHouse</p>
+                    </div>
                     <div className="preTreeHeader">
-                        <Button onClick={this.handleAcceptRelation} bsStyle="success">Accept</Button>
-                        <Button onClick={this.declineRelation} bsStyle="danger">Decline</Button>
+                        <Button onClick={this.handleAcceptRelation} bsStyle="success">Approve</Button>
+                        <Button onClick={this.declineRelation} bsStyle="danger">Deny</Button>
                     </div>
                 </Modal>
         }

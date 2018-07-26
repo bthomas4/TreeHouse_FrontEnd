@@ -63,7 +63,7 @@ class TreeHouse extends Component {
             console.log('Message sent');
         })
     }
-
+    
     //Accept a invitation to a new TreeHouse
     acceptTreeInvitation = (treeID, messageID) => {
         const personTreeHouse = {

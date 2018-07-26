@@ -81,17 +81,13 @@ class Generations extends Component {
     //Submit a relation request
     submitRelationRequest = (event) => {
         event.preventDefault();
-        console.log(this.state.spouseDropDown)
         let biologicalPerson = null;
         if (this.state.spouseDropDown === this.props.loggedInUser.firstName) {
             biologicalPerson = this.props.loggedInUser.email
-            console.log(biologicalPerson)
         }
         else if (this.state.spouseDropDown === this.state.userToRelate.firstName) {
             biologicalPerson = this.state.userToRelate.email
-            console.log(biologicalPerson)
         }
-
         const message = {
             subject: 'Relation',
             treeID: this.props.currentTree.treeHouseID,
@@ -138,7 +134,7 @@ class Generations extends Component {
             spouseMenu =
                 <React.Fragment>
                     <p className="space1"/>
-                    <h4>Whose biological tree is this?</h4>
+                    <h4>Who is the biological member of this tree?</h4>
                     <ButtonToolbar>
                         <DropdownButton onSelect={this.spouseDropDownChange} title={this.state.spouseDropDown} bsSize="large" id="sideButton">
                             <MenuItem eventKey={this.state.userToRelate.firstName}>{this.state.userToRelate.firstName} {this.state.userToRelate.lastName}</MenuItem>
