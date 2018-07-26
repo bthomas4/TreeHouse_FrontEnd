@@ -27,24 +27,19 @@ body {
 }
 
 .aboutTree {
-  margin-top: 20px;
+  margin-top: 10px;
   display: inline-flex;
 }
 
-.formFont3 {
-  text-align: left;
-  font-size: 28px;
-  color: rgb(49, 180, 67);
-}
-
 .aboutQuestions {
-  margin-top: 10px;
+  margin-top: 35px;
 }
 
 .navLogo2 {
+  margin-top: 20px;
   margin-bottom: 20px;
-  width: 200px;
-  height: 150px;
+  width: 230px;
+  height: 180px;
 }
 
 .alert {
@@ -67,7 +62,7 @@ body {
 }
 
 .formBox3 {
-  padding: 4% 20% 4% 20%;
+  padding: 4% 10% 4% 10%;
 }
 
 .formFont {
@@ -78,6 +73,17 @@ body {
 .formFont2 {
   text-align: center;
   font-size: 30px;
+  color: rgb(49, 180, 67);
+}
+
+.formFont3 {
+  text-align: left;
+  font-size: 25px;
+  color: rgb(49, 180, 67);
+}
+
+.formFont4 {
+  font-size: 20px;
   color: rgb(49, 180, 67);
 }
 
@@ -232,7 +238,7 @@ body {
 
 /*--------------------- SignUp classes ---------------------*/
 .signUpForm {
-  margin-top: 15px;
+  margin-top: 55px;
 }
 
 .signUpBox {

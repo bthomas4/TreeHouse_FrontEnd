@@ -5,7 +5,7 @@ class Messages extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentMessage: '',
+            currentMessage: null,
             openInvitation: false,
             openRelation: false }
         this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -19,6 +19,7 @@ class Messages extends Component {
         this.setState({
             currentMessage: message,
         })
+        console.log(message);
         if (message.subject === "Invitation") {
             this.setState({
                 openInvitation: !this.state.openInvitation
@@ -60,20 +61,18 @@ class Messages extends Component {
             messageAlert = 'No messages'
         }
 
-        if (this.props.messages !== null && this.props.messages.length > 0) {
+        if (this.props.messages !== null && this.props.messages.length > 0 && this.state.currentMessage !== null) {
             invitationModal =
                 <Modal show={this.state.openInvitation} onHide={this.handleCloseInvitation}>
+                    
                     <Modal.Header closeButton>
-
-{/* not sure why I can't get the value of an object attribute */}
-                        {/* <Modal.Title>Sender: {this.state.currentMessage.senderPerson.firstName} {this.state.currentMessage.sender} </Modal.Title> */}                    
+                        <Modal.Title>Sender: {this.state.currentMessage.senderPerson.firstName} {this.state.currentMessage.senderPerson.lastName} </Modal.Title>                    
                     </Modal.Header>
+
                     <div className="formBox3">
                         <p className="formFont2">You've been invited!</p>
                         <p className="space2" />
-
-{/* not sure why I can't get the value of an object attribute */}
-                        {/* <h2 className="center-text">{this.state.currentMessage.treeHouse.treeHouseName} Family TreeHouse</h2> */}
+                        <h2 className="center-text">{this.state.currentMessage.treeHouse.treeHouseName} Family TreeHouse</h2>
                         <div className="preTreeHeader">
                             <Button onClick={this.handleAcceptInvitation} bsStyle="success" bsSize="large">Accept</Button>
                             <Button bsSize="large" bsStyle="danger">Decline</Button>
@@ -85,7 +84,7 @@ class Messages extends Component {
             invitationModal = null;
         }
 
-        if (this.props.messages !== null && this.props.messages.length > 0) {
+        if (this.props.messages !== null && this.props.messages.length > 0 && this.state.currentMessage !== null) {
             relationModal =
                 <Modal show={this.state.openRelation} onHide={this.handleCloseRelation}>
                     <Modal.Header closeButton>

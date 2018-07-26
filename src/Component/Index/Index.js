@@ -85,29 +85,33 @@ class SignUp extends Component {
                 <Modal.Header closeButton>
                     <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                         <Tab eventKey={1} title="TreeHouse">
-                            <div className="">
                                 <div className="aboutTree">
                                     <img className="navLogo2" src={logo} alt="" />
                                     <div className="aboutQuestions">
-                                        <p className="formFont3">What is TreeHouse?</p>
-                                        <p className="formFont3">What do we do?</p>
-                                        <p className="formFont3">Why TreeHouse?</p>
+                                        <p className="formFont3">Your tree. Your stories.</p>
+                                        <p>TreeHouse is a digital time capsule that lets family members build family trees.
+                                        Here, family members can privately create and share stories about themselves and the lives they lived.
+                                        The stories you choose to create will serve as an everlasting image of you that future generations will come to know.</p>
                                     </div>
-
                                 </div>
-                                <p>TreeHouse is a private family tree web application.</p>
-
-                                <p>It lets family members create and share stories about themselves and the lives they lived.</p>
-
-                                <p>It lets family members create and share stories about themselves and the lives they lived.</p>
-
-                            </div>
                         </Tab>
                         <Tab eventKey={2} title="Tutorial">
                             <p>A video or tip on how everything works</p>
                         </Tab>
                         <Tab eventKey={3} title="Pro Tips">
-                            <p>Suggestions to better your experience</p>
+                            <div className="aboutQuestions">
+                                <p className="formFont4">Pro Tip #1:</p>
+                                <h4>Do audio recordings in a studio environment.</h4>
+                                <p className="formFont4">Pro Tip #2:</p>
+                                <h4>Record a story with a friend or family member.</h4>
+                                <p className="formFont4">Pro Tip #3:</p>
+                                <h4>MP3's take up less space that WAV's.</h4>
+                                <p className="formFont4">Pro Tip #4:</p>
+                                <h4>This is a pro tip</h4>
+                                <p className="formFont4">Pro Tip #5:</p>
+                                <h4>This is a pro tip</h4>
+                                <p>{"'"+this.state.openAboutModal+"'"}</p>
+                            </div>
                         </Tab>
                     </Tabs>
                 </Modal.Header>
