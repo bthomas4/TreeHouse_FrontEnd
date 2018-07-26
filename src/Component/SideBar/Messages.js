@@ -11,7 +11,10 @@ class Messages extends Component {
         this.handleOpenMessage = this.handleOpenMessage.bind(this);
         this.handleCloseInvitation = this.handleCloseInvitation.bind(this);
         this.handleCloseRelation = this.handleCloseRelation.bind(this);
+        this.handleAcceptRelation = this.handleAcceptRelation.bind(this);
         this.handleAcceptInvitation = this.handleAcceptInvitation.bind(this);
+        this.declineInvitation = this.declineInvitation.bind(this);
+        this.declineRelation = this.declineRelation.bind(this);
     }
 
     //Handle open Message
@@ -19,20 +22,19 @@ class Messages extends Component {
         this.setState({
             currentMessage: message,
         })
-        console.log(message);
         if (message.subject === "Invitation") {
             this.setState({
                 openInvitation: !this.state.openInvitation
             })
         }
-        else if (message.subject === "Relationship") {
+        else if (message.subject === "Relation") {
             this.setState({
                 openRelation: !this.state.openRelation
             })
         }
     }
 
-    //Handle close Relation modal
+    //Close Relation modal
     handleCloseRelation() {
         this.setState({
             openRelation: !this.state.openRelation
@@ -46,12 +48,30 @@ class Messages extends Component {
         })
     }
 
+    //Accept a Relation Request
+    handleAcceptRelation() {
+        this.props.acceptRelationRequest();
+        this.handleCloseRelation();
+    }
+
     //Handle accept an invitation
     handleAcceptInvitation() {
         this.props.acceptTreeInvitation(this.state.currentMessage.treeID, this.state.currentMessage.messageID);
         this.handleCloseInvitation();
     }
 
+    //Decline Invitation
+    declineInvitation() {
+        this.props.removeMessage(this.state.currentMessage.messageID);
+        this.handleCloseInvitation();
+    }
+
+    //Decline Relation
+    declineRelation() {
+        this.props.removeMessage(this.state.currentMessage.messageID);
+        this.handleCloseRelation();
+    }
+    
     render() {
         let messageAlert = '';
         let invitationModal = null;
@@ -61,25 +81,24 @@ class Messages extends Component {
             messageAlert = 'No messages'
         }
 
+    //Message modals to accept or decline requests
         if (this.props.messages !== null && this.props.messages.length > 0 && this.state.currentMessage !== null) {
             invitationModal =
                 <Modal show={this.state.openInvitation} onHide={this.handleCloseInvitation}>
-                    
                     <Modal.Header closeButton>
                         <Modal.Title>Sender: {this.state.currentMessage.senderPerson.firstName} {this.state.currentMessage.senderPerson.lastName} </Modal.Title>                    
                     </Modal.Header>
-
                     <div className="formBox3">
                         <p className="formFont2">You've been invited!</p>
                         <p className="space2" />
                         <h2 className="center-text">{this.state.currentMessage.treeHouse.treeHouseName} Family TreeHouse</h2>
                         <div className="preTreeHeader">
                             <Button onClick={this.handleAcceptInvitation} bsStyle="success" bsSize="large">Accept</Button>
-                            <Button bsSize="large" bsStyle="danger">Decline</Button>
+                            <Button onClick={this.declineInvitation} bsSize="large" bsStyle="danger">Decline</Button>
                         </div>
                     </div>
                 </Modal>
-        }
+        }   
         else {
             invitationModal = null;
         }
@@ -94,7 +113,10 @@ class Messages extends Component {
                     <p>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.sender}</p>
                     <p>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiver}</p>
                     <p>TreeHouse: {this.state.currentMessage.treeID}</p>
-                    <Button bsStyle="success">Accept</Button><Button bsStyle="danger">Decline</Button>
+                    <div className="preTreeHeader">
+                        <Button onClick={this.handleAcceptRelation} bsStyle="success">Accept</Button>
+                        <Button onClick={this.declineRelation} bsStyle="danger">Decline</Button>
+                    </div>
                 </Modal>
         }
         else {

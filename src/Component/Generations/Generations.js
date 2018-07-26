@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import defaultPic from '../../images/defaultUserPic.png';
-import {Grid, Tab, Tabs, Modal, Row, Col, Image, Button} from 'react-bootstrap';
+import {DropdownButton, Form, ButtonToolbar, MenuItem, Grid, Tab, Tabs, Modal, Row, Col, Image, Button} from 'react-bootstrap';
 
 class Generations extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -11,12 +10,18 @@ class Generations extends Component {
             storyToPreview: null,
             picturesToPreview: null,
             userToRelate: '',
+            dropDownMenuValue1: 'Select',
+            dropDownMenuValue2: 'Select',
+            spouseDropDown: 'Select',
             openProfile: false,
             openRelation: false }
         this.handleOpenProfile = this.handleOpenProfile.bind(this);
         this.handleCloseProfile = this.handleCloseProfile.bind(this);
         this.handleCloseRelation = this.handleCloseRelation.bind(this);
         this.handleOpenRelation = this.handleOpenRelation.bind(this);
+        this.dropDownMenuChange1 = this.dropDownMenuChange1.bind(this);
+        this.dropDownMenuChange2 = this.dropDownMenuChange2.bind(this);
+        this.spouseDropDownChange = this.spouseDropDownChange.bind(this);
     }
 
     //Close a member's story
@@ -28,7 +33,6 @@ class Generations extends Component {
 
     //Open a member's story
     handleOpenProfile = (user) => {
-        
         //axios call to get story for passed user (send user.email)
         //set storyToPreview: response.data in reponse
 
@@ -47,12 +51,58 @@ class Generations extends Component {
 
     //Open a relation request
     handleOpenRelation = (user) => {
-
         this.setState({
             openRelation: !this.state.openRelation,
             userToRelate: user
         })
     }     
+
+    //Handle change in dropdown 1 button
+    dropDownMenuChange1 = (relation) => {
+        this.setState({
+            dropDownMenuValue1: relation
+        })
+    }
+
+    //Handle change in dropdown 2 button
+    dropDownMenuChange2 = (relation) => {
+        this.setState({
+            dropDownMenuValue2: relation
+        })
+    }
+
+    //Handle change in spouse drop down
+    spouseDropDownChange = (person) => {
+        this.setState({
+            spouseDropDown: person,
+        })
+    }
+    
+    //Submit a relation request
+    submitRelationRequest = (event) => {
+        event.preventDefault();
+        console.log(this.state.spouseDropDown)
+        let biologicalPerson = null;
+        if (this.state.spouseDropDown === this.props.loggedInUser.firstName) {
+            biologicalPerson = this.props.loggedInUser.email
+            console.log(biologicalPerson)
+        }
+        else if (this.state.spouseDropDown === this.state.userToRelate.firstName) {
+            biologicalPerson = this.state.userToRelate.email
+            console.log(biologicalPerson)
+        }
+
+        const message = {
+            subject: 'Relation',
+            treeID: this.props.currentTree.treeHouseID,
+            receiver: this.state.userToRelate.email,
+            sender: this.props.loggedInUser.email,
+            receiverRelationToSender: this.state.dropDownMenuValue1,
+            senderRelationToReceiver: this.state.dropDownMenuValue2,
+            biologicalPerson: biologicalPerson }
+        this.props.submitRelation(message);
+        this.handleCloseRelation();
+    }
 
     render() {
         let rows = [];
@@ -61,6 +111,41 @@ class Generations extends Component {
                 <Row className="genContainer">
                     <CreateColumns handleOpenRelation={this.handleOpenRelation} handleOpenProfile={this.handleOpenProfile} members={this.props.members[i]} />
                 </Row>);
+        }
+        
+        let relationMenu1 = 
+            <ButtonToolbar>
+                <DropdownButton onSelect={this.dropDownMenuChange1} title={this.state.dropDownMenuValue1} bsSize="large" id="sideButton">
+                    <MenuItem eventKey={'Father'}>Father</MenuItem>
+                    <MenuItem eventKey={'Mother'}>Mother</MenuItem>
+                    <MenuItem eventKey={'Child'}>Child</MenuItem>
+                    <MenuItem eventKey={'Spouse'}>Spouse</MenuItem>
+                </DropdownButton>
+            </ButtonToolbar>
+
+        let relationMenu2 = 
+            <ButtonToolbar>
+                <DropdownButton onSelect={this.dropDownMenuChange2} title={this.state.dropDownMenuValue2} bsSize="large" id="sideButton">
+                    <MenuItem eventKey={'Father'}>Father</MenuItem>
+                    <MenuItem eventKey={'Mother'}>Mother</MenuItem>
+                    <MenuItem eventKey={'Child'}>Child</MenuItem>
+                    <MenuItem eventKey={'Spouse'}>Spouse</MenuItem>
+                </DropdownButton>
+            </ButtonToolbar>
+
+        let spouseMenu = '';
+        if (this.state.dropDownMenuValue1 === 'Spouse' || this.state.dropDownMenuValue2 === 'Spouse') {
+            spouseMenu =
+                <React.Fragment>
+                    <p className="space1"/>
+                    <h4>Whose biological tree is this?</h4>
+                    <ButtonToolbar>
+                        <DropdownButton onSelect={this.spouseDropDownChange} title={this.state.spouseDropDown} bsSize="large" id="sideButton">
+                            <MenuItem eventKey={this.state.userToRelate.firstName}>{this.state.userToRelate.firstName} {this.state.userToRelate.lastName}</MenuItem>
+                            <MenuItem eventKey={this.props.loggedInUser.firstName}>{this.props.loggedInUser.firstName} {this.props.loggedInUser.lastName}</MenuItem>
+                        </DropdownButton>
+                    </ButtonToolbar>
+                </React.Fragment>
         }
 
         return (
@@ -71,9 +156,9 @@ class Generations extends Component {
                     })}
                 </Grid>
 
+
                 <Modal show={this.state.openProfile} onHide={this.handleCloseProfile} >
                     <Modal.Header closeButton>
-                        <Modal.Title>{this.state.userToPreview.firstName}</Modal.Title>
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                             <Tab eventKey={1} title="Overview">
                                 <p>A text summary about whatever a person wishes to add.</p>
@@ -97,16 +182,25 @@ class Generations extends Component {
                     </Modal.Header>
                 </Modal>  
 
+
                 <Modal show={this.state.openRelation} onHide={this.handleCloseRelation} >
                     <Modal.Header closeButton>
-                                <Modal.Title>Set Relation</Modal.Title>
+                        <Modal.Title>Set Relation</Modal.Title>
                     </Modal.Header>
-                    <div className="formBox3">
-                        <p>{this.state.userToRelate.firstName} {this.state.userToRelate.lastName}</p>
-                        <p>A dropdown to pick a relation name</p>
-                        <p>You</p>
-                        <p>Another dropdown to set your relation</p>
-                    </div>
+
+                    <Form onSubmit={this.submitRelationRequest} className="formBox3">
+                        <h4>{this.state.userToRelate.firstName} {this.state.userToRelate.lastName}</h4>
+                        <p className="space1"/>   
+                        {relationMenu1}
+
+                        <h4>You</h4>
+                        <p className="space1"/>   
+                        {relationMenu2}
+
+                        {spouseMenu}
+                        <p className="space3"/>
+                        <Button type="submit" bsStyle="success">Send Request</Button>
+                    </Form>
                 </Modal>
             </React.Fragment>
         )

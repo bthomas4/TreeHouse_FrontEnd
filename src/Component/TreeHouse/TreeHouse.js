@@ -3,7 +3,6 @@ import axios from 'axios';
 import SideBar from '../SideBar/SideBar';
 import Messages from '../SideBar/Messages';
 import Generations from '../Generations/Generations';
-import {Modal} from 'react-bootstrap';
 import MyCarousel from '../Carousel/MyCarousel';
 
 class TreeHouse extends Component {
@@ -11,9 +10,12 @@ class TreeHouse extends Component {
         super(props);
         this.state = {
             members: [],
-            messages: [] }
+            messages: [],
+            currentTree: '' }
         this.getMembersFromTreeHouse = this.getMembersFromTreeHouse.bind(this);
         this.getMessagesForUser = this.getMessagesForUser.bind(this);
+        this.submitInvitation = this.submitInvitation.bind(this);
+        this.submitRelation = this.submitRelation.bind(this);
         this.acceptTreeInvitation = this.acceptTreeInvitation.bind(this);
         this.acceptRelationRequest = this.acceptRelationRequest.bind(this);
         this.removeMessage - this.removeMessage.bind(this);
@@ -26,7 +28,8 @@ class TreeHouse extends Component {
         .then(response => {
             const members = response.data
             this.setState({
-                members: members
+                members: members,
+                currentTree: tree
             })
         })
     }
@@ -45,6 +48,22 @@ class TreeHouse extends Component {
         })
     }
 
+    //Submit Invitation form
+    submitInvitation(inviteUserToTreeHouse) {
+        axios.post('http://localhost:8080/inviteUserToTreeHouse', inviteUserToTreeHouse)
+        .then(response => {
+            console.log('message sent')
+        })
+    }
+
+    //Submit Relation form
+    submitRelation(message) {
+        axios.post('http://localhost:8080/requestRelation', message)
+        .then(response => {
+            console.log('Message sent');
+        })
+    }
+
     //Accept a invitation to a new TreeHouse
     acceptTreeInvitation = (treeID, messageID) => {
         const personTreeHouse = {
@@ -58,18 +77,7 @@ class TreeHouse extends Component {
         this.removeMessage(messageID);
     }
 
-    //Accept a relation request
-    acceptRelationRequest() {
-    //     axios.post('http://localhost:8080/acceptRelationRequest', SOMEOBJECTTOSEND)
-    //     .then(response => {
-            
-    //     })
-    //     //will need to recall update getMembersFromTreeHouse(pass the tree here) to show updated values;
-    }
-
-    //Decline a tree invitation
-    //Decline a relation request
-    //Remove a message from DB and local array
+    //Remove a message from DB and local array (decline invite/request)
     removeMessage = (messageID) => {
         axios.get('http://localhost:8080/removeMessage', {params: {id: messageID}})
         .then(response => {
@@ -83,11 +91,20 @@ class TreeHouse extends Component {
         })
     }
 
+    //Accept a relation request
+    acceptRelationRequest() {
+        //     axios.post('http://localhost:8080/acceptRelationRequest', SOMEOBJECTTOSEND)
+        //     .then(response => {
+                
+        //     })
+        //     //will need to recall update getMembersFromTreeHouse(pass the tree here) to show updated values;
+        console.log('ax post')
+    }
+
     //Load TH and messages
     componentDidMount() { 
         //Fetch TH members
         this.getMembersFromTreeHouse(this.props.userTrees[0])  
-        
         //Load messages for the user
         this.getMessagesForUser()
     }
@@ -95,11 +112,10 @@ class TreeHouse extends Component {
     render() {
         return (
             <div className="treeHouse">
-
-                <SideBar userTrees={this.props.userTrees}  loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />,
-                <Messages messages={this.state.messages} acceptTreeInvitation={this.acceptTreeInvitation} loggedInUser={this.props.loggedInUser} />,
+                <SideBar userTrees={this.props.userTrees} loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} submitInvitation={this.submitInvitation} />,
+                <Messages messages={this.state.messages} acceptTreeInvitation={this.acceptTreeInvitation} acceptRelationRequest={this.acceptRelationRequest} loggedInUser={this.props.loggedInUser} removeMessage={this.removeMessage} />,
                 {/* <MyCarousel />, */}
-                <Generations members={this.state.members} getMembersFromTreeHouse={this.getMembersFromTreeHouse} />
+                <Generations loggedInUser={this.props.loggedInUser} submitRelation={this.submitRelation} currentTree={this.state.currentTree} members={this.state.members} />
                 
             </div>
         ) 

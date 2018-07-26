@@ -20,14 +20,14 @@ class PreTree extends Component {
     }
 
     //Handle Create A Tree button
-    createTreeButtonPressed = (event) => {
+    createTreeButtonPressed() {
         this.setState({
             openCreateForm: !this.state.openCreateForm
         })
     }
 
     //Handle Find A Tree button
-    findTreeButtonPressed = (event) => {
+    findTreeButtonPressed() {
         this.setState({
             openFindForm: !this.state.openFindForm
         })

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import def from '../../images/defaultUserPic.png';
 import {ButtonToolbar, Modal, Form, FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
-import axios from 'axios';
 
 class SideBar extends Component {
     constructor(props) {
@@ -13,22 +12,24 @@ class SideBar extends Component {
             inviteeFirstName: '',
             inviteeLastName: '',
             inviteeEmail: '' }
-        this.openSendInvitationPressed = this.openSendInvitationPressed.bind(this);
-        this.submitSendInvitation = this.submitSendInvitation.bind(this);
+        this.openInvitationPressed = this.openInvitationPressed.bind(this);
+        this.handleSubmitInvitation = this.handleSubmitInvitation.bind(this);
+        this.changeFormHandler = this.changeFormHandler.bind(this);
         this.invitationMenuItemValueChange = this.invitationMenuItemValueChange.bind(this);
         this.dropDownTreeChange - this.dropDownTreeChange.bind(this);
     }
     
     //Handle Send Invitation button
-    openSendInvitationPressed() {
+    openInvitationPressed() {
         this.setState({
             openSendInvitationForm: !this.state.openSendInvitationForm
         })
     }
 
-//WHY DOES THIS LOG THE CURRENT USER OUT
-    //Func to handle submit on Send Invitation form
-    submitSendInvitation = () => {
+
+    //Handle submit Invitation form
+    handleSubmitInvitation = (event) => {
+        event.preventDefault();
         const message = {
             subject: 'Invitation',
             treeID: this.state.invitationMenuTree.treeHouseID,
@@ -40,11 +41,8 @@ class SideBar extends Component {
             inviteeLastName: this.state.inviteeLastName,
             message: message }
 
-        //axios call passing the message 
-        axios.post('http://localhost:8080/inviteUserToTreeHouse', inviteUserToTreeHouse)
-        .then(response => {
-            console.log('message sent')
-        })
+        this.props.submitInvitation(inviteUserToTreeHouse);
+        this.openInvitationPressed();
     }
 
     //Handle change in forms
@@ -62,26 +60,22 @@ class SideBar extends Component {
         this.setState({
             invitationMenuTree: tree
         })
-        console.log(tree)
     }
 
     //Handle change in TreeHouse dropDown
     dropDownTreeChange = (tree) => {
         this.props.getMembersFromTreeHouse(tree);
-
         this.setState({
             dropDownTree: tree
         })
     }
 
     render () {
-
         return (
             <React.Fragment>
                 <div className="profileSideNav">
                     <img className="profilePic img-circle" src={def} alt="Profile" />
                     <p className="space0"></p>
-
                     <div className="profileMenu">
                         <ButtonToolbar>
                             <DropdownButton onSelect={this.dropDownTreeChange} title={this.state.dropDownTree.treeHouseName} bsSize="large" id="sideButton">
@@ -93,20 +87,19 @@ class SideBar extends Component {
                             </DropdownButton>
                         </ButtonToolbar>
                         <p className="space1" />
-                        <Button onClick={this.openSendInvitationPressed} id="sideButton" bsSize="large" bsStyle="success">Send Invitation</Button>
+                        <Button onClick={this.openInvitationPressed} id="sideButton" bsSize="large" bsStyle="success">Send Invitation</Button>
                         <p className="space1"/>
                     </div>
                 </div>
 
-                <Modal show={this.state.openSendInvitationForm} onHide={this.openSendInvitationPressed} >
+                <Modal show={this.state.openSendInvitationForm} onHide={this.openInvitationPressed} >
                     <Modal.Header closeButton>
                         <Modal.Title>Send Invitation</Modal.Title>
                     </Modal.Header>
 
-                    <Form onSubmit={this.submitSendInvitation} className="formBox1">
+                    <Form onSubmit={this.handleSubmitInvitation} className="formBox1">
                         <p className="formFont">Select a TreeHouse:</p>
                         <p className="space1"/>   
-
                         <DropdownButton onSelect={this.invitationMenuItemValueChange} title={this.state.invitationMenuTree.treeHouseName} id="dropdown-size-large" bsSize="large" >
                             {this.props.userTrees.map((tree, index) => {
                                 return (
@@ -114,7 +107,6 @@ class SideBar extends Component {
                                 )
                             })}
                         </DropdownButton>  
-
                         <p className="space3"/>
                         <p className="formFont">Who is being invited to this tree?</p>
                         <p className="space1"/>
