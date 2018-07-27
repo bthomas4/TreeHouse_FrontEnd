@@ -48,23 +48,21 @@ class Messages extends Component {
             openInvitation: !this.state.openInvitation
         })
     }
-
-
-
-
-
     
     //Accept a Relation Request
-    handleAcceptRelation() {
-        this.props.acceptRelationRequest();
+    handleAcceptRelation = (event) => {
+        event.preventDefault();
+        const message = {
+            treeID: this.state.currentMessage.treeHouse.treeHouseID,
+            receiver: this.state.currentMessage.receiverPerson.email,
+            sender: this.state.currentMessage.senderPerson.email,
+            receiverRelationToSender: this.state.currentMessage.receiverRelationToSender,
+            senderRelationToReceiver: this.state.currentMessage.senderRelationToReceiver,
+            biologicalPerson: this.state.currentMessage.biologicalPerson }
+
+        this.props.acceptRelationRequest(message);
         this.handleCloseRelation();
     }
-
-
-
-
-
-
 
     //Handle accept an invitation
     handleAcceptInvitation() {
