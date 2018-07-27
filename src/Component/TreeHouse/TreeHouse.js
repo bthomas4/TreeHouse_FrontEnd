@@ -93,11 +93,14 @@ class TreeHouse extends Component {
 
     //Accept a relation request
     acceptRelationRequest = (message) => {
-            axios.post('http://localhost:8080/acceptRelation', message)
-            .then(response => {
-            })
-            this.removeMessage(message.messageID);
-            this.getMembersFromTreeHouse(message.treeID);
+        console.log('accept relation called');
+        axios.post('http://localhost:8080/acceptRelation', message)
+        .then(response => {
+        })
+        console.log('remove message')
+        this.removeMessage(message.messageID);
+        console.log('get members from tree')
+        this.getMembersFromTreeHouse(this.state.currentTree);
     }
 
     //Load TH and messages

@@ -53,13 +53,14 @@ class Messages extends Component {
     handleAcceptRelation = (event) => {
         event.preventDefault();
         const message = {
+            messageID: this.state.currentMessage.messageID,
             treeID: this.state.currentMessage.treeHouse.treeHouseID,
             receiver: this.state.currentMessage.receiverPerson.email,
             sender: this.state.currentMessage.senderPerson.email,
             receiverRelationToSender: this.state.currentMessage.receiverRelationToSender,
             senderRelationToReceiver: this.state.currentMessage.senderRelationToReceiver,
             biologicalPerson: this.state.currentMessage.biologicalPerson }
-
+        
         this.props.acceptRelationRequest(message);
         this.handleCloseRelation();
     }
