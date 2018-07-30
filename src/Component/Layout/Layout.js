@@ -11,10 +11,24 @@ class Layout extends Component {
         super(props);
         this.state = {
             loggedInUser: null,
+            messages: [],
             userTrees: [] }
         this.setUser = this.setUser.bind(this);
+        this.getMessagesForUser = this.getMessagesForUser.bind(this);
         this.searchForTrees = this.searchForTrees.bind(this);
         this.addToUserTrees = this.addToUserTrees.bind(this);
+        this.acceptTreeInvitation = this.acceptTreeInvitation.bind(this);
+        this.removeMessage - this.removeMessage.bind(this);
+        this.logOut = this.logOut.bind(this);
+    }
+
+    //Logout everything
+    logOut() {
+        this.setState({
+            loggedInUser: null,
+            message: [],
+            userTrees: []
+        })
     }
 
     //Keeping user in layout component to manage components
@@ -40,6 +54,49 @@ class Layout extends Component {
         })
     }
 
+    //Get all messages for a user
+    getMessagesForUser() {
+        let user = null;
+        if (this.state.loggedInUser !== null) {
+            user = {
+                email: this.state.loggedInUser.email }}
+
+        axios.post('http://localhost:8080/getMessagesForUser', user)
+        .then(response => {
+            const msgs = response.data
+            this.setState({
+                messages: msgs
+            })
+        })
+    }
+
+    //Accept a invitation to a new TreeHouse
+    acceptTreeInvitation = (treeID, messageID) => {
+        const personTreeHouse = {
+            personEmail: this.state.loggedInUser.email,
+            treeHouseID: treeID }
+
+        axios.post('http://localhost:8080/acceptInvitation', personTreeHouse)
+        .then(response => {
+            this.searchForTrees(this.state.loggedInUser.email);
+        })
+        this.removeMessage(messageID);
+    }
+
+    //Remove a message from DB and local array (decline invite/request)
+    removeMessage = (messageID) => {
+        axios.get('http://localhost:8080/removeMessage', {params: {id: messageID}})
+        .then(response => {
+            let newMsgs = [...this.state.messages];
+            let index = newMsgs.findIndex(message => message.messageID === messageID);
+            newMsgs.splice(index, 1);
+
+            this.setState({
+                messages: newMsgs
+            })
+        })
+    }
+    
     addToUserTrees = (tree) => {
         this.setState({
             userTrees: [...this.state.userTrees, tree]
@@ -52,18 +109,18 @@ class Layout extends Component {
 
         //If user is logged in but has no THs
         if (this.state.loggedInUser !== null && this.state.userTrees.length === 0) {
-            route = (<PreTree loggedInUser={this.state.loggedInUser} addToUserTrees={this.addToUserTrees} />)
+            route = (<PreTree removeMessage={this.removeMessage} acceptTreeInvitation={this.acceptTreeInvitation} getMessagesForUser={this.getMessagesForUser} messages={this.state.messages} loggedInUser={this.state.loggedInUser} addToUserTrees={this.addToUserTrees} />)
         }
 
         //If user is logged in and has a TH
         if (this.state.loggedInUser !== null && this.state.userTrees.length > 0) {
-            route = (<TreeHouse loggedInUser={this.state.loggedInUser} userTrees={this.state.userTrees} searchForTrees={this.searchForTrees} />)
+            route = (<TreeHouse removeMessage={this.removeMessage} acceptTreeInvitation={this.acceptTreeInvitation} getMessagesForUser={this.getMessagesForUser} messages={this.state.messages} loggedInUser={this.state.loggedInUser} userTrees={this.state.userTrees} searchForTrees={this.searchForTrees} />)
         }
 
         return (
             //What's currently being displayed
             <React.Fragment>
-                <NavHeader loggedInUser={this.state.loggedInUser} setUser={this.setUser} />
+                <NavHeader logOut={this.logOut} loggedInUser={this.state.loggedInUser} setUser={this.setUser} />
                 {route}
             </React.Fragment>
         )

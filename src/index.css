@@ -65,6 +65,11 @@ body {
   padding: 4% 10% 4% 10%;
 }
 
+.formBox4 {
+  display: block;
+  padding: 4% 10% 4% 10%;
+}
+
 .formFont {
   font-size: 20px;
   color: rgb(49, 180, 67);
@@ -146,7 +151,7 @@ body {
 /*--------------------- Side bar ---------------------*/
 .profileSideNav {
   background-color: white;
-  height: 64%;
+  height: 70%;
   width: 220px;
   position: fixed;
   z-index: 1;
@@ -178,7 +183,7 @@ body {
 /*--------------------- Messages ---------------------*/
 .profileMessageContainer {
   width: 220px;
-  height: 36%;
+  height: 30%;
   left: 0;
   bottom: 0;
   position: fixed;

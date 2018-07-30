@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Alert, Button, Form, FormGroup, FormControl, ControlLabel, Modal} from 'react-bootstrap';
 import axios from 'axios';
+import Messages from '../SideBar/Messages';
+import SideBar2 from '../SideBar/SideBar2';
 
 class PreTree extends Component {
     constructor(props) {
@@ -67,18 +69,24 @@ class PreTree extends Component {
     //Func to handle submit on Find A Tree form
     submitFindATree = (event) => {
         event.preventDefault();
-
         //axios call to back end here
 
         this.setState({
             openFindForm: !this.state.openFindForm
         })
     }
-
+    
+    componentDidMount() { 
+        //Load messages for the user
+        this.props.getMessagesForUser()
+    }
 
     render() {
         return (
             <React.Fragment>
+                <Messages messages={this.props.messages} removeMessage={this.props.removeMessage} acceptTreeInvitation={this.props.acceptTreeInvitation} />
+                <SideBar2 />
+
                 <div className="preTree">
                     <Alert bsStyle="warning" id="center">Looks like you don't have a TreeHouse yet!</Alert>
                     <div className="preTreeHeader">

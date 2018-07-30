@@ -101,11 +101,11 @@ class Messages extends Component {
                     </Modal.Header>
                     <div className="formBox3">
                         <p className="formFont2">You've been invited!</p>
-                        <p className="space2" />
+                        <p className="space2"/>
                         <h2 className="center-text">{this.state.currentMessage.treeHouse.treeHouseName} TreeHouse</h2>
                         <div className="preTreeHeader">
                             <Button onClick={this.handleAcceptInvitation} bsStyle="success" bsSize="large">Accept</Button>
-                            <Button onClick={this.declineInvitation} bsSize="large" bsStyle="danger">Decline</Button>
+                            <Button onClick={this.declineInvitation} bsSize="large" bsStyle="danger">Delete</Button>
                         </div>
                     </div>
                 </Modal>
@@ -121,15 +121,18 @@ class Messages extends Component {
                         <Modal.Title>Relation Request</Modal.Title>
                     </Modal.Header>
                     <div className="formBox3">
-                        <h4>Please review the following relation:</h4>
-                        <p>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.senderPerson.firstName}</p>
-                        <p>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiverPerson.firstName}</p>
-                        <p>{this.state.currentMessage.treeHouse.treeHouseName} TreeHouse</p>
+                        <p className="formFont2">Review the following relation:</p>
+                        <p className="space2"/>
+                        <h3>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.senderPerson.firstName}</h3>
+                        <h3>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiverPerson.firstName}</h3>
+                        <h3>TreeHouse: {this.state.currentMessage.treeHouse.treeHouseName}</h3>
+                       
+                        <div className="preTreeHeader">
+                            <Button onClick={this.handleAcceptRelation} bsSize="large" bsStyle="success">Approve</Button>
+                            <Button onClick={this.declineRelation} bsSize="large" bsStyle="danger">Delete</Button>
+                        </div>
                     </div>
-                    <div className="preTreeHeader">
-                        <Button onClick={this.handleAcceptRelation} bsStyle="success">Approve</Button>
-                        <Button onClick={this.declineRelation} bsStyle="danger">Deny</Button>
-                    </div>
+
                 </Modal>
         }
         else {

@@ -74,9 +74,11 @@ class SideBar extends Component {
         return (
             <React.Fragment>
                 <div className="profileSideNav">
+                <Button bsStyle="link" onClick={this.props.logOut}>Log Out</Button>
                     <img className="profilePic img-circle" src={def} alt="Profile" />
                     <p className="space0"></p>
                     <div className="profileMenu">
+
                         <ButtonToolbar>
                             <DropdownButton onSelect={this.dropDownTreeChange} title={this.state.dropDownTree.treeHouseName} bsSize="large" id="sideButton">
                                 {this.props.userTrees.map((tree, index) => {

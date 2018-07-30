@@ -133,8 +133,8 @@ class Generations extends Component {
         if (this.state.dropDownMenuValue1 === 'Spouse' || this.state.dropDownMenuValue2 === 'Spouse') {
             spouseMenu =
                 <React.Fragment>
+                    <h3>Biological member?</h3>
                     <p className="space1"/>
-                    <h4>Who is the biological member of this tree?</h4>
                     <ButtonToolbar>
                         <DropdownButton onSelect={this.spouseDropDownChange} title={this.state.spouseDropDown} bsSize="large" id="sideButton">
                             <MenuItem eventKey={this.state.userToRelate.firstName}>{this.state.userToRelate.firstName} {this.state.userToRelate.lastName}</MenuItem>
@@ -184,18 +184,18 @@ class Generations extends Component {
                         <Modal.Title>Set Relation</Modal.Title>
                     </Modal.Header>
 
-                    <Form onSubmit={this.submitRelationRequest} className="formBox3">
-                        <h4>{this.state.userToRelate.firstName} {this.state.userToRelate.lastName}</h4>
-                        <p className="space1"/>   
-                        {relationMenu1}
-
-                        <h4>You</h4>
+                    <Form onSubmit={this.submitRelationRequest} className="formBox4">
+                        <h3>You</h3>
                         <p className="space1"/>   
                         {relationMenu2}
 
+                        <h3>{this.state.userToRelate.firstName} {this.state.userToRelate.lastName}</h3>
+                        <p className="space1"/>   
+                        {relationMenu1}
+                        
                         {spouseMenu}
                         <p className="space3"/>
-                        <Button type="submit" bsStyle="success">Send Request</Button>
+                        <Button type="submit" bsSize="large" bsStyle="success">Send Request</Button>
                     </Form>
                 </Modal>
             </React.Fragment>
