@@ -85,7 +85,7 @@ class PreTree extends Component {
         return (
             <React.Fragment>
                 <Messages messages={this.props.messages} removeMessage={this.props.removeMessage} acceptTreeInvitation={this.props.acceptTreeInvitation} />
-                <SideBar2 />
+                <SideBar2 logOut={this.props.logOut} />
 
                 <div className="preTree">
                     <Alert bsStyle="warning" id="center">Looks like you don't have a TreeHouse yet!</Alert>

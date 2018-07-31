@@ -131,7 +131,7 @@ body {
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  width: 86%;
+  width: 85%;
 }
 
 .genCards {
@@ -144,7 +144,42 @@ body {
 .genPics {
   width: 200px;
   height: 200px;
-  padding: 10%;
+  padding: 5%;
+}
+
+.collectionPics {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
+
+.imageContainer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.storyBox {
+  height: 400px;
+  display: block;
+  flex-direction: row;
+  /* flex-wrap: nowrap; */
+  overflow-x: scroll;
+}
+
+.storyBlock {
+  border-bottom: 1px solid gainsboro;
+  padding: 2%;
+  width: 550px;
 }
 
 
@@ -169,11 +204,26 @@ body {
   padding: 8%;
 }
 
+.viewPic {
+  width: 220px;
+  height: 220px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+}
+
 .profileMenu {
   width: 100%;
   padding-left: 13px;
   padding-bottom: 5px;
   font-size: 20px;
+}
+
+.logOut {
+  padding-left: 13px;
+  font-size: 16px;
 }
 
 #sideButton {

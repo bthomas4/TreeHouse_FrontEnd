@@ -101,16 +101,17 @@ class SignUp extends Component {
                         <Tab eventKey={3} title="Pro Tips">
                             <div className="aboutQuestions">
                                 <p className="formFont4">Pro Tip #1:</p>
-                                <h4>Do audio recordings in a studio environment.</h4>
-                                <p className="formFont4">Pro Tip #2:</p>
                                 <h4>Record a story with a friend or family member.</h4>
-                                <p className="formFont4">Pro Tip #3:</p>
+                                <p className="space2"/>
+                                <p className="formFont4">Pro Tip #2:</p>
                                 <h4>MP3's take up less space that WAV's.</h4>
+                                <p className="space2"/>
+                                <p className="formFont4">Pro Tip #3:</p>
+                                <h4>Do audio recordings in a studio environment.</h4>
+                                <p className="space2"/>
                                 <p className="formFont4">Pro Tip #4:</p>
-                                <h4>This is a pro tip</h4>
-                                <p className="formFont4">Pro Tip #5:</p>
-                                <h4>This is a pro tip</h4>
-                                <p>{"'"+this.state.openAboutModal+"'"}</p>
+                                <h4>Sometimes, less is more.</h4>                                
+                                {/* <p>{"'"+this.state.openAboutModal+"'"}</p> */}
                             </div>
                         </Tab>
                     </Tabs>

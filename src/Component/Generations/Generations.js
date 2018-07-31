@@ -22,6 +22,8 @@ class Generations extends Component {
         this.dropDownMenuChange1 = this.dropDownMenuChange1.bind(this);
         this.dropDownMenuChange2 = this.dropDownMenuChange2.bind(this);
         this.spouseDropDownChange = this.spouseDropDownChange.bind(this);
+        this.getStories = this.getStories.bind(this);
+        this.getPictures = this.getPictures.bind(this);
     }
 
     //Close a member's story
@@ -100,9 +102,34 @@ class Generations extends Component {
         this.handleCloseRelation();
     }
 
+    getPictures = (user) => {
+        let images = [];
+        for (var i=0; i<6; i++) {
+            images.push(
+                <Image className="collectionPics" src={defaultPic} alt="200x200"/>);
+            }
+        return (
+            <Row className="imageContainer">
+                {images}
+            </Row>
+        )
+    }
+
+    getStories = (user) => {
+        let stories = [];
+        for (var i=1; i<10; i++) {
+            stories.push(<Row className="storyBlock"><p>{user.firstName} Story #{i}</p></Row>)
+        }
+        return (
+            <Grid className="storyBox">
+                {stories}
+            </Grid>
+        )
+    }
+
     render() {
         let rows = [];
-        for(let i=0; i<this.props.members.length; i++){
+        for(let i=0; i<this.props.members.length; i++) {
             rows.push(
                 <Row className="genContainer">
                     <CreateColumns handleOpenRelation={this.handleOpenRelation} handleOpenProfile={this.handleOpenProfile} members={this.props.members[i]} />
@@ -156,23 +183,31 @@ class Generations extends Component {
                 <Modal show={this.state.openProfile} onHide={this.handleCloseProfile} >
                     <Modal.Header closeButton>
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-                            <Tab eventKey={1} title="Overview">
-                                <p>A text summary about whatever a person wishes to add.</p>
+                            
+                            <Tab eventKey={1} title="Summary">
+                                <Image src={defaultPic} alt="200x200" className="viewPic" />
+                                <h4>{this.state.userToPreview.firstName} {this.state.userToPreview.lastName}</h4>
+                                <p>A text summary about whatever a person wishes to add. This person 
+                                    grew up here and perhaps did some other stuff in these locations, 
+                                    which could eventually link pictures via geolocations to Google maps
+                                    to show exactly where people did things. 
+                                </p>
                             </Tab>
+
                             <Tab eventKey={2} title="Stories">
-                
-                {/* map storyToPreview */}
-                                <p>{this.state.userToPreview.email}</p>
+                                {this.getStories(this.state.userToPreview)}
+                                {/* map storyToPreview */}
                             </Tab>
+
                             <Tab eventKey={3} title="Pictures">
-                                            
-                {/* map picturesToPreview */}
-                {/* try to put inside a horizontal scroll???? */}
-                                {this.props.members.map((member, index) => {
+                                {this.getPictures(this.state.userToPreview)}
+                                {/* map picturesToPreview */}
+                                {/* try to put inside a horizontal scroll???? */}
+                                {/* {this.props.members.map((member, index) => {
                                     return (
                                         <p key={index}>{member.firstName}</p>
                                     )
-                                })}
+                                })} */}
                             </Tab>
                         </Tabs>
                     </Modal.Header>

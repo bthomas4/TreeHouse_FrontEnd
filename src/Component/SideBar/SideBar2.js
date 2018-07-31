@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import def from '../../images/defaultUserPic.png';
-import {ButtonToolbar, DropdownButton} from 'react-bootstrap';
+import {ButtonToolbar, Button, DropdownButton} from 'react-bootstrap';
 
 class SideBar extends Component {
     constructor(props) {
@@ -11,6 +11,7 @@ class SideBar extends Component {
         return (
             <React.Fragment>
                 <div className="profileSideNav">
+                <Button className="logOut" bsStyle="link" onClick={this.props.logOut}>Log Out</Button>
                     <img className="profilePic img-circle" src={def} alt="Profile" />
                     <p className="space0"></p>
                     <div className="profileMenu">

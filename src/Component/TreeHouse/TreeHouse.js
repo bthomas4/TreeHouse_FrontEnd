@@ -67,7 +67,7 @@ class TreeHouse extends Component {
     render() {
         return (
             <div className="treeHouse">
-                <SideBar userTrees={this.props.userTrees} loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} submitInvitation={this.submitInvitation} />,
+                <SideBar userTrees={this.props.userTrees} loggedInUser={this.props.loggedInUser} getMembersFromTreeHouse={this.getMembersFromTreeHouse} submitInvitation={this.submitInvitation} logOut={this.props.logOut} />,
                 <Messages messages={this.props.messages} acceptTreeInvitation={this.props.acceptTreeInvitation} acceptRelationRequest={this.acceptRelationRequest} loggedInUser={this.props.loggedInUser} removeMessage={this.props.removeMessage} />,
                 {/* <MyCarousel />, */}
                 <Generations loggedInUser={this.props.loggedInUser} submitRelation={this.submitRelation} currentTree={this.state.currentTree} members={this.state.members} />

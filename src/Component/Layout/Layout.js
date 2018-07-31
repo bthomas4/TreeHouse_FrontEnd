@@ -109,18 +109,18 @@ class Layout extends Component {
 
         //If user is logged in but has no THs
         if (this.state.loggedInUser !== null && this.state.userTrees.length === 0) {
-            route = (<PreTree removeMessage={this.removeMessage} acceptTreeInvitation={this.acceptTreeInvitation} getMessagesForUser={this.getMessagesForUser} messages={this.state.messages} loggedInUser={this.state.loggedInUser} addToUserTrees={this.addToUserTrees} />)
+            route = (<PreTree logOut={this.logOut} removeMessage={this.removeMessage} acceptTreeInvitation={this.acceptTreeInvitation} getMessagesForUser={this.getMessagesForUser} messages={this.state.messages} loggedInUser={this.state.loggedInUser} addToUserTrees={this.addToUserTrees} />)
         }
 
         //If user is logged in and has a TH
         if (this.state.loggedInUser !== null && this.state.userTrees.length > 0) {
-            route = (<TreeHouse removeMessage={this.removeMessage} acceptTreeInvitation={this.acceptTreeInvitation} getMessagesForUser={this.getMessagesForUser} messages={this.state.messages} loggedInUser={this.state.loggedInUser} userTrees={this.state.userTrees} searchForTrees={this.searchForTrees} />)
+            route = (<TreeHouse logOut={this.logOut} removeMessage={this.removeMessage} acceptTreeInvitation={this.acceptTreeInvitation} getMessagesForUser={this.getMessagesForUser} messages={this.state.messages} loggedInUser={this.state.loggedInUser} userTrees={this.state.userTrees} searchForTrees={this.searchForTrees} />)
         }
 
         return (
             //What's currently being displayed
             <React.Fragment>
-                <NavHeader logOut={this.logOut} loggedInUser={this.state.loggedInUser} setUser={this.setUser} />
+                <NavHeader loggedInUser={this.state.loggedInUser} setUser={this.setUser} />
                 {route}
             </React.Fragment>
         )
