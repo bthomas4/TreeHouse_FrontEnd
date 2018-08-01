@@ -123,10 +123,12 @@ class Messages extends Component {
                     <div className="formBox3">
                         <p className="formFont2">Review the following relation:</p>
                         <p className="space2"/>
-                        <h3>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.senderPerson.firstName}</h3>
-                        <h3>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiverPerson.firstName}</h3>
-                        <h3>TreeHouse: {this.state.currentMessage.treeHouse.treeHouseName}</h3>
-                       
+                        <div className="leftAlign">
+                            <h3>{this.state.currentMessage.senderRelationToReceiver}: {this.state.currentMessage.senderPerson.firstName}</h3>
+                            <h3>{this.state.currentMessage.receiverRelationToSender}: {this.state.currentMessage.receiverPerson.firstName}</h3>
+                            <h3>TreeHouse: {this.state.currentMessage.treeHouse.treeHouseName}</h3>
+                        </div>
+
                         <div className="preTreeHeader">
                             <Button onClick={this.handleAcceptRelation} bsSize="large" bsStyle="success">Approve</Button>
                             <Button onClick={this.declineRelation} bsSize="large" bsStyle="danger">Delete</Button>

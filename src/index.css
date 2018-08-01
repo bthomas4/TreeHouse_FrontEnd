@@ -92,6 +92,10 @@ body {
   color: rgb(49, 180, 67);
 }
 
+.leftAlign {
+  margin-left: 45px;
+}
+
 /*--------------------- PreTree classes ---------------------*/
 .preTree {
   margin-top: 200px;
