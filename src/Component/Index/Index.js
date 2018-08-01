@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Modal, Tabs, Tab, Button} from 'react-bootstrap';
 import axios from 'axios';
-import logo from '../../images/tree1.png'
+import logo from '../../images/tree1.png';
 
 class SignUp extends Component {
     

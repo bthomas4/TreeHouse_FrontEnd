@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import defaultPic from '../../images/defaultUserPic.png';
+import defaultPic from '../../images/pic1.png';
 import {DropdownButton, Form, ButtonToolbar, MenuItem, Grid, Tab, Tabs, Modal, Row, Col, Image, Button} from 'react-bootstrap';
 
 class Generations extends Component {
@@ -193,7 +193,7 @@ class Generations extends Component {
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                             
                             <Tab eventKey={1} title="Summary">
-                                <Image src={defaultPic} alt="200x200" className="viewPic" />
+                                <Image src={this.state.userToPreview.path} alt="200x200" className="viewPic" />
                                 <h4>{this.state.userToPreview.firstName} {this.state.userToPreview.lastName}</h4>
                                 <p>A text summary about whatever a person wishes to add. This person 
                                     grew up here and perhaps did some other stuff in these locations, 
