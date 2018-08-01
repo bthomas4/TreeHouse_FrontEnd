@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
-import def from '../../images/defaultUserPic.png';
 import {ButtonToolbar, Button, DropdownButton} from 'react-bootstrap';
 
 class SideBar extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render () {
         return (
             <React.Fragment>
                 <div className="profileSideNav">
                 <Button className="logOut" bsStyle="link" onClick={this.props.logOut}>Log Out</Button>
-                    <img className="profilePic img-circle" src={def} alt="Profile" />
+                    <img className="profilePic img-circle" src={this.props.loggedInUser.path} alt="Profile" />
                     <p className="space0"></p>
                     <div className="profileMenu">
                         <ButtonToolbar>
@@ -22,8 +17,6 @@ class SideBar extends Component {
                         <p className="space1" />            
                     </div>
                 </div>
-
-
             </React.Fragment>
         )
     }

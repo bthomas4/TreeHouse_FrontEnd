@@ -110,7 +110,11 @@ class Generations extends Component {
             }
         return (
             <Row className="imageContainer">
-                {images}
+                {images.map((image, index) => {
+                    return (
+                        <React.Fragment key={index}>{image}</React.Fragment>
+                    )
+                })}
             </Row>
         )
     }
@@ -118,11 +122,15 @@ class Generations extends Component {
     getStories = (user) => {
         let stories = [];
         for (var i=1; i<10; i++) {
-            stories.push(<Row className="storyBlock"><p>{user.firstName} Story #{i}</p></Row>)
+            stories.push(<h3>{user.firstName} Story #{i}</h3>)
         }
         return (
             <Grid className="storyBox">
-                {stories}
+                {stories.map((story, index) => {
+                    return (
+                        <Row className="storyBlock" key={index}>{story}</Row>
+                    )
+                })}
             </Grid>
         )
     }
@@ -244,7 +252,7 @@ const CreateColumns = (props) => {
         members.map((member) => {
             return (
                 <Col key={member.email} xs={2} md={3} className="genCards">
-                    <Image circle src={defaultPic} alt="200x200" className="genPics" />
+                    <Image circle src={member.path} alt="200x200" className="genPics" />
                     <h3>{member.firstName} {member.lastName}</h3>
                     <p>
                     <Button onClick={() => props.handleOpenProfile(member)} bsStyle="success">View</Button>&nbsp;

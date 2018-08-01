@@ -3,7 +3,6 @@ import axios from 'axios';
 import SideBar from '../SideBar/SideBar';
 import Messages from '../SideBar/Messages';
 import Generations from '../Generations/Generations';
-import MyCarousel from '../Carousel/MyCarousel';
 
 class TreeHouse extends Component {
     constructor(props) {

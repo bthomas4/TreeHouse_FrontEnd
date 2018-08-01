@@ -18,7 +18,7 @@ class Layout extends Component {
         this.searchForTrees = this.searchForTrees.bind(this);
         this.addToUserTrees = this.addToUserTrees.bind(this);
         this.acceptTreeInvitation = this.acceptTreeInvitation.bind(this);
-        this.removeMessage - this.removeMessage.bind(this);
+        this.removeMessage = this.removeMessage.bind(this);
         this.logOut = this.logOut.bind(this);
     }
 
@@ -50,7 +50,6 @@ class Layout extends Component {
             this.setState({
                 userTrees: trees
             })
-            console.log(trees)
         })
     }
 

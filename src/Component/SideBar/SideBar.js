@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import def from '../../images/defaultUserPic.png';
 import {ButtonToolbar, Modal, Form, FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
 
 class SideBar extends Component {
@@ -16,7 +15,7 @@ class SideBar extends Component {
         this.handleSubmitInvitation = this.handleSubmitInvitation.bind(this);
         this.changeFormHandler = this.changeFormHandler.bind(this);
         this.invitationMenuItemValueChange = this.invitationMenuItemValueChange.bind(this);
-        this.dropDownTreeChange - this.dropDownTreeChange.bind(this);
+        this.dropDownTreeChange = this.dropDownTreeChange.bind(this);
     }
     
     //Handle Send Invitation button
@@ -75,7 +74,7 @@ class SideBar extends Component {
             <React.Fragment>
                 <div className="profileSideNav">
                 <Button className="logOut" bsStyle="link" onClick={this.props.logOut}>Log Out</Button>
-                    <img className="profilePic img-circle" src={def} alt="Profile" />
+                    <img className="profilePic img-circle" src={this.props.loggedInUser.path} alt="Profile" />
                     <p className="space0"></p>
                     <div className="profileMenu">
 
